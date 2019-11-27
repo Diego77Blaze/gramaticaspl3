@@ -43,18 +43,16 @@ endif_key:ENDIF;
 finaldelinea_key:PUNTOYCOMA;
 
 
-valordevuelto: numero_key  
+tipo: numero_key  
                 |cadena_key  
                 |void_key   
                 ;
-tipo: numero_key
-    |cadena_key 
-    ;
+
 
 
 include: include_key identificador_tok finaldelinea_key;
 
-cuerpofuncion: funcion_key identificador_tok abrir_parentesis_tok (tipo (int_tok|string_tok|booleano|identificador_tok(coma_tok (tipo (int_tok|string_tok|booleano|identificador_tok)))*))? cerrar_parentesis_tok dospuntos_tok valordevuelto 
+cuerpofuncion: funcion_key identificador_tok abrir_parentesis_tok (tipo (identificador_tok(coma_tok (tipo (identificador_tok)))*))? cerrar_parentesis_tok dospuntos_tok tipo 
     begin_key* 
     ((codigo|cuerpofuncion))*
     end_key*
