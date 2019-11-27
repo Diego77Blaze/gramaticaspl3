@@ -1,0 +1,6 @@
+graph prueba{
+    a -- b;
+    d -- c;
+    a -- c;
+    c -- b;
+}
