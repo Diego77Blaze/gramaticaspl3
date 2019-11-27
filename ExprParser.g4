@@ -52,7 +52,9 @@ tipo: numero_key
 
 include: include_key identificador_tok finaldelinea_key;
 
-cuerpofuncion: funcion_key identificador_tok abrir_parentesis_tok (tipo (identificador_tok(coma_tok (tipo (identificador_tok)))*))? cerrar_parentesis_tok dospuntos_tok tipo 
+cabecerafuncion:funcion_key identificador_tok abrir_parentesis_tok (tipo (identificador_tok(coma_tok (tipo (identificador_tok)))*))? cerrar_parentesis_tok dospuntos_tok tipo;
+
+cuerpofuncion: cabecerafuncion 
     begin_key* 
     ((codigo|cuerpofuncion))*
     end_key*
