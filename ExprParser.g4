@@ -43,9 +43,9 @@ endif_key:ENDIF;
 finaldelinea_key:PUNTOYCOMA;
 
 
-tipo: numero_key  
-                |cadena_key  
-                |void_key   
+tipo: numero_key
+                |cadena_key
+                |void_key
                 ;
 
 
@@ -54,8 +54,8 @@ include: include_key identificador_tok finaldelinea_key;
 
 cabecerafuncion:funcion_key identificador_tok abrir_parentesis_tok (tipo (identificador_tok(coma_tok (tipo (identificador_tok)))*))? cerrar_parentesis_tok dospuntos_tok tipo;
 
-cuerpofuncion: cabecerafuncion 
-    begin_key* 
+cuerpofuncion: cabecerafuncion
+    begin_key*
     ((codigo|cuerpofuncion))*
     end_key*
     ;
@@ -68,7 +68,7 @@ cuerpoif:if_key abrir_parentesis_tok expr cerrar_parentesis_tok then_key
         endif_key;
 
 
-cuerpobuclewhile: while_key abrir_parentesis_tok (expr) cerrar_parentesis_tok 
+cuerpobuclewhile: while_key abrir_parentesis_tok (expr) cerrar_parentesis_tok
             //(asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif)+
             (codigo
             |(begin_key*
@@ -81,18 +81,17 @@ cuerposwitch: switch_key abrir_parentesis_tok expr cerrar_parentesis_tok
                 (default_key dospuntos_tok begin_key? codigo* (break_key finaldelinea_key)?)?
                 end_switch_key;
 
-expr : expr (mult_tok|div_tok) expr
-    |   expr (sum_tok|res_tok) expr
-    |   expr (menor_tok|mayor_tok|iguales_tok|distinto_tok) expr
-    |   int_tok
-    |   abrir_parentesis_tok expr cerrar_parentesis_tok
-    |   OPERACION abrir_parentesis_tok (expr(coma_tok expr)*)? cerrar_parentesis_tok
-    |   identificador_tok
-    |   booleano
-    |   string_tok 
-    |   llamadafuncion
- 
-    
+expr : expr (mult_tok|div_tok) expr #multDiv
+    |   expr (sum_tok|res_tok) expr #sumRest
+    |   expr (menor_tok|mayor_tok|iguales_tok|distinto_tok) expr #exprBooleana
+    |   int_tok #terminalInt
+    |   abrir_parentesis_tok expr cerrar_parentesis_tok #exprEntreParentesis
+    |   identificador_tok #exprId
+    |   booleano #terminalBool
+    |   string_tok #terminalString
+    |   llamadafuncion #exprLlamadaFuncion
+
+
     ;
 codigo:(asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|cuerposwitch);
 declaracion:tipo identificador_tok (igualdeasignacion_tok expr  finaldelinea_key|finaldelinea_key);

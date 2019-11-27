@@ -367,16 +367,6 @@ public interface ExprParserListener extends ParseTreeListener {
 	 */
 	void exitFinaldelinea_key(ExprParser.Finaldelinea_keyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExprParser#valordevuelto}.
-	 * @param ctx the parse tree
-	 */
-	void enterValordevuelto(ExprParser.ValordevueltoContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExprParser#valordevuelto}.
-	 * @param ctx the parse tree
-	 */
-	void exitValordevuelto(ExprParser.ValordevueltoContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ExprParser#tipo}.
 	 * @param ctx the parse tree
 	 */
@@ -396,6 +386,16 @@ public interface ExprParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInclude(ExprParser.IncludeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ExprParser#cabecerafuncion}.
+	 * @param ctx the parse tree
+	 */
+	void enterCabecerafuncion(ExprParser.CabecerafuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExprParser#cabecerafuncion}.
+	 * @param ctx the parse tree
+	 */
+	void exitCabecerafuncion(ExprParser.CabecerafuncionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ExprParser#cuerpofuncion}.
 	 * @param ctx the parse tree
