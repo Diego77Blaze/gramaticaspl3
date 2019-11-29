@@ -3,44 +3,7 @@ parser grammar ExprParser;
 options{tokenVocab=ExprLexer;language=Java;}
 axioma: (/*NEWLINE*/(comentario|include|cuerpofuncion|declaracion)*);
 
-include_key:INCLUDE;
-identificador_tok:IDENTIFICADOR;
-numero_key:NUMERO;
-cadena_key:CADENA;
-void_key:VOID;
-begin_key:BEGIN;
-end_key:END;
-abrir_parentesis_tok:AP;
-cerrar_parentesis_tok:CP;
-coma_tok:COMA;
-dospuntos_tok:DOSPUNTOS;
-funcion_key:FUNCION;
-int_tok:INT;
-string_tok:STRING;
-while_key:WHILE;
-igualdeasignacion_tok:IGUALDEASIGNACION;
-devolver_key:DEVOLVER;
-mult_tok:MULT;
-div_tok:DIV;
-sum_tok:SUM;
-res_tok:RES;
-mayor_tok:MAYOR;
-menor_tok:MENOR;
-iguales_tok:IGUALES;
-distinto_tok:DISTINTO;
 
-switch_key:SWITCH;
-end_switch_key:END_SWITCH;
-case_key:CASE;
-break_key:BREAK;
-default_key:DEFAULT;
-
-if_key:IF;
-then_key:THEN;
-else_key:ELSE;
-endif_key:ENDIF;
-
-finaldelinea_key:PUNTOYCOMA;
 
 
 tipo: numero_key
@@ -98,3 +61,42 @@ declaracion:tipo identificador_tok (igualdeasignacion_tok expr  finaldelinea_key
 asignacion: identificador_tok igualdeasignacion_tok expr finaldelinea_key;
 comentario: COMENTARIOBLOQUE|COMENTARIOLINEA;
 booleano:TRUE|FALSE;
+
+include_key:INCLUDE;
+identificador_tok:IDENTIFICADOR;
+numero_key:NUMERO;
+cadena_key:CADENA;
+void_key:VOID;
+begin_key:BEGIN;
+end_key:END;
+coma_tok:COMA;
+dospuntos_tok:DOSPUNTOS;
+funcion_key:FUNCION;
+int_tok:INT;
+string_tok:STRING;
+while_key:WHILE;
+igualdeasignacion_tok:IGUALDEASIGNACION;
+devolver_key:DEVOLVER;
+mult_tok:MULT;
+div_tok:DIV;
+sum_tok:SUM;
+res_tok:RES;
+mayor_tok:MAYOR;
+menor_tok:MENOR;
+iguales_tok:IGUALES;
+distinto_tok:DISTINTO;
+
+switch_key:SWITCH;
+end_switch_key:END_SWITCH;
+case_key:CASE;
+break_key:BREAK;
+default_key:DEFAULT;
+
+if_key:IF;
+then_key:THEN;
+else_key:ELSE;
+endif_key:ENDIF;
+
+abrir_parentesis_tok:AP;
+cerrar_parentesis_tok:CP;
+finaldelinea_key:PUNTOYCOMA;

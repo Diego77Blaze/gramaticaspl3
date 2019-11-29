@@ -2,7 +2,7 @@
 import java.io.*;
 import java.util.*;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*; 
+import org.antlr.v4.runtime.tree.*;
 
 public class EjecutableExpr{
     public static void main(String[] args) throws Exception{
@@ -21,11 +21,8 @@ public class EjecutableExpr{
         parser.setBuildParseTree(true);
         ParseTree tree=parser.axioma();
 
-        ListenerPropio lprop =new ListenerPropio();
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-
-        walker.walk(lprop,tree);
+        VisitorPropio vp = new VisitorPropio();
+        vp.visit().axioma;
 
         //System.out.println(lprop.ruta);
     }
