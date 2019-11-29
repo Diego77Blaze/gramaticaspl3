@@ -31,7 +31,7 @@ STRING: '"' (ESC|.)*? '"';
 
 
 
-PUNTOYCOMA:';';
+
 MULT:'*';
 DIV:'/';
 SUM:'+';
@@ -43,6 +43,7 @@ IGUALES:'==';
 IGUALDEASIGNACION:':=';
 DOSPUNTOS:':';
 COMA: ',';
+PUNTOYCOMA:';';
 ESC:'\\'[btnr"\\];
 COMENTARIOLINEA: '//' .*? '\n' ->skip;
 COMENTARIOBLOQUE: '/*' .*? '*/' ->skip; 

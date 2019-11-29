@@ -1,4 +1,4 @@
-// Generated from ExprLexer.g4 by ANTLR 4.7.2
+// Generated from c:\antlr\gramaticas\gramaticaPL3\ExprLexer.g4 by ANTLR 4.7.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ExprLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.7.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -19,10 +19,10 @@ public class ExprLexer extends Lexer {
 		IF=1, THEN=2, ELSE=3, ENDIF=4, AP=5, CP=6, FUNCION=7, VOID=8, INCLUDE=9, 
 		BEGIN=10, END=11, NUMERO=12, CADENA=13, WHILE=14, TRUE=15, FALSE=16, DEVOLVER=17, 
 		SWITCH=18, END_SWITCH=19, BREAK=20, CASE=21, DEFAULT=22, IDENTIFICADOR=23, 
-		OPERACION=24, NEWLINE=25, INT=26, FLOTANTE=27, STRING=28, PUNTOYCOMA=29, 
-		MULT=30, DIV=31, SUM=32, RES=33, MENOR=34, MAYOR=35, DISTINTO=36, IGUALES=37, 
-		IGUALDEASIGNACION=38, DOSPUNTOS=39, COMA=40, ESC=41, COMENTARIOLINEA=42, 
-		COMENTARIOBLOQUE=43, WS=44;
+		OPERACION=24, NEWLINE=25, INT=26, FLOTANTE=27, STRING=28, MULT=29, DIV=30, 
+		SUM=31, RES=32, MENOR=33, MAYOR=34, DISTINTO=35, IGUALES=36, IGUALDEASIGNACION=37, 
+		DOSPUNTOS=38, COMA=39, PUNTOYCOMA=40, ESC=41, COMENTARIOLINEA=42, COMENTARIOBLOQUE=43, 
+		WS=44;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -31,39 +31,30 @@ public class ExprLexer extends Lexer {
 		"DEFAULT_MODE"
 	};
 
-	private static String[] makeRuleNames() {
-		return new String[] {
-			"IF", "THEN", "ELSE", "ENDIF", "AP", "CP", "FUNCION", "VOID", "INCLUDE", 
-			"BEGIN", "END", "NUMERO", "CADENA", "WHILE", "TRUE", "FALSE", "DEVOLVER", 
-			"SWITCH", "END_SWITCH", "BREAK", "CASE", "DEFAULT", "IDENTIFICADOR", 
-			"OPERACION", "NEWLINE", "INT", "FLOTANTE", "STRING", "PUNTOYCOMA", "MULT", 
-			"DIV", "SUM", "RES", "MENOR", "MAYOR", "DISTINTO", "IGUALES", "IGUALDEASIGNACION", 
-			"DOSPUNTOS", "COMA", "ESC", "COMENTARIOLINEA", "COMENTARIOBLOQUE", "WS"
-		};
-	}
-	public static final String[] ruleNames = makeRuleNames();
+	public static final String[] ruleNames = {
+		"IF", "THEN", "ELSE", "ENDIF", "AP", "CP", "FUNCION", "VOID", "INCLUDE", 
+		"BEGIN", "END", "NUMERO", "CADENA", "WHILE", "TRUE", "FALSE", "DEVOLVER", 
+		"SWITCH", "END_SWITCH", "BREAK", "CASE", "DEFAULT", "IDENTIFICADOR", "OPERACION", 
+		"NEWLINE", "INT", "FLOTANTE", "STRING", "MULT", "DIV", "SUM", "RES", "MENOR", 
+		"MAYOR", "DISTINTO", "IGUALES", "IGUALDEASIGNACION", "DOSPUNTOS", "COMA", 
+		"PUNTOYCOMA", "ESC", "COMENTARIOLINEA", "COMENTARIOBLOQUE", "WS"
+	};
 
-	private static String[] makeLiteralNames() {
-		return new String[] {
-			null, "'if'", "'then'", "'else'", "'endif'", "'('", "')'", "'function'", 
-			"'void'", "'include'", "'begin'", "'end'", "'numero'", "'cadena'", "'while'", 
-			"'true'", "'false'", "'devolver'", "'switch'", "'endswitch'", "'break'", 
-			"'case'", "'default'", null, null, null, null, null, null, "';'", "'*'", 
-			"'/'", "'+'", "'-'", "'<'", "'>'", "'!='", "'=='", "':='", "':'", "','"
-		};
-	}
-	private static final String[] _LITERAL_NAMES = makeLiteralNames();
-	private static String[] makeSymbolicNames() {
-		return new String[] {
-			null, "IF", "THEN", "ELSE", "ENDIF", "AP", "CP", "FUNCION", "VOID", "INCLUDE", 
-			"BEGIN", "END", "NUMERO", "CADENA", "WHILE", "TRUE", "FALSE", "DEVOLVER", 
-			"SWITCH", "END_SWITCH", "BREAK", "CASE", "DEFAULT", "IDENTIFICADOR", 
-			"OPERACION", "NEWLINE", "INT", "FLOTANTE", "STRING", "PUNTOYCOMA", "MULT", 
-			"DIV", "SUM", "RES", "MENOR", "MAYOR", "DISTINTO", "IGUALES", "IGUALDEASIGNACION", 
-			"DOSPUNTOS", "COMA", "ESC", "COMENTARIOLINEA", "COMENTARIOBLOQUE", "WS"
-		};
-	}
-	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+	private static final String[] _LITERAL_NAMES = {
+		null, "'if'", "'then'", "'else'", "'endif'", "'('", "')'", "'function'", 
+		"'void'", "'include'", "'begin'", "'end'", "'numero'", "'cadena'", "'while'", 
+		"'true'", "'false'", "'devolver'", "'switch'", "'endswitch'", "'break'", 
+		"'case'", "'default'", null, null, null, null, null, null, "'*'", "'/'", 
+		"'+'", "'-'", "'<'", "'>'", "'!='", "'=='", "':='", "':'", "','", "';'"
+	};
+	private static final String[] _SYMBOLIC_NAMES = {
+		null, "IF", "THEN", "ELSE", "ENDIF", "AP", "CP", "FUNCION", "VOID", "INCLUDE", 
+		"BEGIN", "END", "NUMERO", "CADENA", "WHILE", "TRUE", "FALSE", "DEVOLVER", 
+		"SWITCH", "END_SWITCH", "BREAK", "CASE", "DEFAULT", "IDENTIFICADOR", "OPERACION", 
+		"NEWLINE", "INT", "FLOTANTE", "STRING", "MULT", "DIV", "SUM", "RES", "MENOR", 
+		"MAYOR", "DISTINTO", "IGUALES", "IGUALDEASIGNACION", "DOSPUNTOS", "COMA", 
+		"PUNTOYCOMA", "ESC", "COMENTARIOLINEA", "COMENTARIOBLOQUE", "WS"
+	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
@@ -142,11 +133,11 @@ public class ExprLexer extends Lexer {
 		"\33\6\33\u00f9\n\33\r\33\16\33\u00fa\3\34\7\34\u00fe\n\34\f\34\16\34\u0101"+
 		"\13\34\3\34\3\34\6\34\u0105\n\34\r\34\16\34\u0106\3\35\3\35\3\35\7\35"+
 		"\u010c\n\35\f\35\16\35\u010f\13\35\3\35\3\35\3\36\3\36\3\37\3\37\3 \3"+
-		" \3!\3!\3\"\3\"\3#\3#\3$\3$\3%\3%\3%\3&\3&\3&\3\'\3\'\3\'\3(\3(\3)\3)"+
-		"\3*\3*\3*\3+\3+\3+\3+\7+\u0135\n+\f+\16+\u0138\13+\3+\3+\3+\3+\3,\3,\3"+
-		",\3,\7,\u0142\n,\f,\16,\u0145\13,\3,\3,\3,\3,\3,\3-\6-\u014d\n-\r-\16"+
-		"-\u014e\3-\3-\5\u010d\u0136\u0143\2.\3\3\5\4\7\5\t\6\13\7\r\b\17\t\21"+
-		"\n\23\13\25\f\27\r\31\16\33\17\35\20\37\21!\22#\23%\24\'\25)\26+\27-\30"+
+		" \3!\3!\3\"\3\"\3#\3#\3$\3$\3$\3%\3%\3%\3&\3&\3&\3\'\3\'\3(\3(\3)\3)\3"+
+		"*\3*\3*\3+\3+\3+\3+\7+\u0135\n+\f+\16+\u0138\13+\3+\3+\3+\3+\3,\3,\3,"+
+		"\3,\7,\u0142\n,\f,\16,\u0145\13,\3,\3,\3,\3,\3,\3-\6-\u014d\n-\r-\16-"+
+		"\u014e\3-\3-\5\u010d\u0136\u0143\2.\3\3\5\4\7\5\t\6\13\7\r\b\17\t\21\n"+
+		"\23\13\25\f\27\r\31\16\33\17\35\20\37\21!\22#\23%\24\'\25)\26+\27-\30"+
 		"/\31\61\32\63\33\65\34\67\359\36;\37= ?!A\"C#E$G%I&K\'M(O)Q*S+U,W-Y.\3"+
 		"\2\7\5\2C\\aac|\6\2\62;C\\aac|\4\2\f\f\17\17\3\2\62;\b\2$$^^ddppttvv\2"+
 		"\u015d\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2\2\2\2\t\3\2\2\2\2\13\3\2\2\2\2"+
@@ -164,7 +155,7 @@ public class ExprLexer extends Lexer {
 		"\2\2\2/\u00de\3\2\2\2\61\u00ee\3\2\2\2\63\u00f1\3\2\2\2\65\u00f8\3\2\2"+
 		"\2\67\u00ff\3\2\2\29\u0108\3\2\2\2;\u0112\3\2\2\2=\u0114\3\2\2\2?\u0116"+
 		"\3\2\2\2A\u0118\3\2\2\2C\u011a\3\2\2\2E\u011c\3\2\2\2G\u011e\3\2\2\2I"+
-		"\u0120\3\2\2\2K\u0123\3\2\2\2M\u0126\3\2\2\2O\u0129\3\2\2\2Q\u012b\3\2"+
+		"\u0121\3\2\2\2K\u0124\3\2\2\2M\u0127\3\2\2\2O\u0129\3\2\2\2Q\u012b\3\2"+
 		"\2\2S\u012d\3\2\2\2U\u0130\3\2\2\2W\u013d\3\2\2\2Y\u014c\3\2\2\2[\\\7"+
 		"k\2\2\\]\7h\2\2]\4\3\2\2\2^_\7v\2\2_`\7j\2\2`a\7g\2\2ab\7p\2\2b\6\3\2"+
 		"\2\2cd\7g\2\2de\7n\2\2ef\7u\2\2fg\7g\2\2g\b\3\2\2\2hi\7g\2\2ij\7p\2\2"+
@@ -212,13 +203,13 @@ public class ExprLexer extends Lexer {
 		"8\3\2\2\2\u0108\u010d\7$\2\2\u0109\u010c\5S*\2\u010a\u010c\13\2\2\2\u010b"+
 		"\u0109\3\2\2\2\u010b\u010a\3\2\2\2\u010c\u010f\3\2\2\2\u010d\u010e\3\2"+
 		"\2\2\u010d\u010b\3\2\2\2\u010e\u0110\3\2\2\2\u010f\u010d\3\2\2\2\u0110"+
-		"\u0111\7$\2\2\u0111:\3\2\2\2\u0112\u0113\7=\2\2\u0113<\3\2\2\2\u0114\u0115"+
-		"\7,\2\2\u0115>\3\2\2\2\u0116\u0117\7\61\2\2\u0117@\3\2\2\2\u0118\u0119"+
-		"\7-\2\2\u0119B\3\2\2\2\u011a\u011b\7/\2\2\u011bD\3\2\2\2\u011c\u011d\7"+
-		">\2\2\u011dF\3\2\2\2\u011e\u011f\7@\2\2\u011fH\3\2\2\2\u0120\u0121\7#"+
-		"\2\2\u0121\u0122\7?\2\2\u0122J\3\2\2\2\u0123\u0124\7?\2\2\u0124\u0125"+
-		"\7?\2\2\u0125L\3\2\2\2\u0126\u0127\7<\2\2\u0127\u0128\7?\2\2\u0128N\3"+
-		"\2\2\2\u0129\u012a\7<\2\2\u012aP\3\2\2\2\u012b\u012c\7.\2\2\u012cR\3\2"+
+		"\u0111\7$\2\2\u0111:\3\2\2\2\u0112\u0113\7,\2\2\u0113<\3\2\2\2\u0114\u0115"+
+		"\7\61\2\2\u0115>\3\2\2\2\u0116\u0117\7-\2\2\u0117@\3\2\2\2\u0118\u0119"+
+		"\7/\2\2\u0119B\3\2\2\2\u011a\u011b\7>\2\2\u011bD\3\2\2\2\u011c\u011d\7"+
+		"@\2\2\u011dF\3\2\2\2\u011e\u011f\7#\2\2\u011f\u0120\7?\2\2\u0120H\3\2"+
+		"\2\2\u0121\u0122\7?\2\2\u0122\u0123\7?\2\2\u0123J\3\2\2\2\u0124\u0125"+
+		"\7<\2\2\u0125\u0126\7?\2\2\u0126L\3\2\2\2\u0127\u0128\7<\2\2\u0128N\3"+
+		"\2\2\2\u0129\u012a\7.\2\2\u012aP\3\2\2\2\u012b\u012c\7=\2\2\u012cR\3\2"+
 		"\2\2\u012d\u012e\7^\2\2\u012e\u012f\t\6\2\2\u012fT\3\2\2\2\u0130\u0131"+
 		"\7\61\2\2\u0131\u0132\7\61\2\2\u0132\u0136\3\2\2\2\u0133\u0135\13\2\2"+
 		"\2\u0134\u0133\3\2\2\2\u0135\u0138\3\2\2\2\u0136\u0137\3\2\2\2\u0136\u0134"+
