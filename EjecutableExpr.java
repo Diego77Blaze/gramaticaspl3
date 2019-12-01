@@ -6,14 +6,19 @@ import org.antlr.v4.runtime.tree.*;
 
 public class EjecutableExpr{
     public static void main(String[] args) throws Exception{
+        TablaDeSimbolos ts = new TablaDeSimbolos();
         String inputFile=null;
 
+        int puntosTotales;
+
         if(args.length>0){inputFile=args[0];}
-        inputFile="PdL-PL2-Prueba01.prog";
+
         //inputFile="prueba1.prog";
         InputStream is = System.in;
         if(inputFile!=null){ is=new FileInputStream(inputFile);}
-        limpiarArchivo();
+    //    limpiarArchivo();
+
+
         CharStream input = CharStreams.fromStream(is);
         ExprLexer lexer = new ExprLexer(input);
         CommonTokenStream tokens =new CommonTokenStream(lexer);
@@ -21,10 +26,12 @@ public class EjecutableExpr{
         parser.setBuildParseTree(true);
         ParseTree tree=parser.axioma();
 
-        VisitorPropio vp = new VisitorPropio();
-        vp.visit().axioma;
+        VisitorPropio vp = new VisitorPropio(ts);
+        vp.visit(tree);
+
+        ts.printHashMap();
 
         //System.out.println(lprop.ruta);
     }
-    public static void limpiarArchivo(){File archivo=new File("esquemaarbol.txt");archivo.delete();}
+    //public static void limpiarArchivo(){File archivo=new File("esquemaarbol.txt");archivo.delete();}
 }

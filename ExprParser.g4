@@ -1,7 +1,7 @@
 parser grammar ExprParser;
 
 options{tokenVocab=ExprLexer;language=Java;}
-axioma: (/*NEWLINE*/(comentario|include|cuerpofuncion|declaracion)*);
+axioma: (/*NEWLINE*/(include|cuerpofuncion|declaracion)*);
 
 
 
@@ -19,29 +19,29 @@ cabecerafuncion:funcion_key identificador_tok abrir_parentesis_tok (tipo (identi
 
 cuerpofuncion: cabecerafuncion
     begin_key*
-    ((codigo|cuerpofuncion))*
+    (codigo|cuerpofuncion*)
     end_key*
     ;
 
 devolver: devolver_key abrir_parentesis_tok expr cerrar_parentesis_tok finaldelinea_key;
 llamadafuncion: identificador_tok abrir_parentesis_tok ((expr(coma_tok expr)*)?) cerrar_parentesis_tok finaldelinea_key?;
 cuerpoif:if_key abrir_parentesis_tok expr cerrar_parentesis_tok then_key
-        (codigo)*
-        (else_key (codigo)*)?
+        (codigo)
+        (else_key (codigo))?
         endif_key;
 
 
 cuerpobuclewhile: while_key abrir_parentesis_tok (expr) cerrar_parentesis_tok
             //(asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif)+
-            (codigo
+            (sentencia_unica
             |(begin_key*
-            codigo*
+            codigo
             end_key*))
 ;
 forma_case: case_key expr dospuntos_tok;
 cuerposwitch: switch_key abrir_parentesis_tok expr cerrar_parentesis_tok
-                (forma_case begin_key? codigo* (break_key finaldelinea_key)?)+
-                (default_key dospuntos_tok begin_key? codigo* (break_key finaldelinea_key)?)?
+                (forma_case begin_key? codigo (break_key finaldelinea_key)?)+
+                (default_key dospuntos_tok begin_key? codigo (break_key finaldelinea_key)?)?
                 end_switch_key;
 
 expr : expr (mult_tok|div_tok) expr #multDiv
@@ -53,13 +53,13 @@ expr : expr (mult_tok|div_tok) expr #multDiv
     |   booleano #terminalBool
     |   string_tok #terminalString
     |   llamadafuncion #exprLlamadaFuncion
-
-
     ;
-codigo:(asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|cuerposwitch);
+
+
+codigo:sentencia_unica*;
+sentencia_unica: (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|cuerposwitch|devolver);
 declaracion:tipo identificador_tok (igualdeasignacion_tok expr  finaldelinea_key|finaldelinea_key);
 asignacion: identificador_tok igualdeasignacion_tok expr finaldelinea_key;
-comentario: COMENTARIOBLOQUE|COMENTARIOLINEA;
 booleano:TRUE|FALSE;
 
 include_key:INCLUDE;

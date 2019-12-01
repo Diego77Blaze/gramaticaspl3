@@ -145,6 +145,12 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCodigo(ExprParser.CodigoContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ExprParser#sentencia_unica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSentencia_unica(ExprParser.Sentencia_unicaContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ExprParser#declaracion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -156,12 +162,6 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAsignacion(ExprParser.AsignacionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExprParser#comentario}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComentario(ExprParser.ComentarioContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExprParser#booleano}.
 	 * @param ctx the parse tree
