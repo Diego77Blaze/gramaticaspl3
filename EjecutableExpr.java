@@ -5,10 +5,12 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 public class EjecutableExpr{
+
     public static void main(String[] args) throws Exception{
         TablaDeSimbolos ts = new TablaDeSimbolos();
-        String inputFile=null;
-
+        String inputFile = null;
+        int resumenPuntosFuncion  = 0;
+        int resumenLineasEfectivas = 0;
         int puntosTotales;
 
         if(args.length>0){inputFile=args[0];}
@@ -30,6 +32,12 @@ public class EjecutableExpr{
         vp.visit(tree);
 
         ts.printHashMap();
+        ts.generarResumenFunciones();
+        resumenPuntosFuncion = ts.getResumenPuntosFuncion();
+        resumenLineasEfectivas = ts.getResumenLineasEfectivas();
+
+        System.out.println("El resumen de puntosFuncion del programa es: " + resumenPuntosFuncion + " puntos en total");
+        System.out.println("El resumen de lineas efectivas del programa es: " + resumenLineasEfectivas + " lineas efectivas en total");
 
         //System.out.println(lprop.ruta);
     }

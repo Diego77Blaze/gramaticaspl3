@@ -41,6 +41,8 @@ public class VisitorPropio extends ExprParserBaseVisitor{
 
         funcionVisitada.setNombre(nombreFuncion);
         funcionVisitada.addParametro(puntosParam/2);
+        funcionVisitada.addLineaEfectiva(1);
+
         return  puntosParam;
     }
 
@@ -61,6 +63,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     public Integer visitSentencia_unica(ExprParser.Sentencia_unicaContext ctx) {
         int puntosSentencia = 0;
         puntosSentencia += (Integer)visitChildren(ctx);
+        funcionVisitada.addLineaEfectiva(1);
         return puntosSentencia;
     }
     @Override
@@ -69,25 +72,28 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     }
     @Override
     public Integer visitDeclaracion(ExprParser.DeclaracionContext ctx) {
+        int puntosDeclaracion = 1;
         if (ctx.expr() != null){
-            funcionVisitada.addDeclaraciones(1);
-            return 1 + (Integer)visit(ctx.expr());
+            puntosDeclaracion += (Integer)visit(ctx.igualdeasignacion_tok()) + (Integer)visit(ctx.expr());
         }
-        return 1;
+        funcionVisitada.addDeclaraciones(1);
+        return puntosDeclaracion;
     }
 
     @Override
     public Integer visitAsignacion(ExprParser.AsignacionContext ctx) {
-        return (Integer)visit(ctx.expr());
+
+        return (Integer)visit(ctx.expr()) + (Integer)visit(ctx.igualdeasignacion_tok());
     }
     @Override
     public Integer visitCuerpobuclewhile(ExprParser.CuerpobuclewhileContext ctx) {
         int puntosBucle = 0;
 
-        puntosBucle += (Integer)visit(ctx.expr());
-        if (ctx.sentencia_unica() != null) puntosBucle += (Integer)visit(ctx.sentencia_unica());
-        else if(ctx.codigo() != null)puntosBucle += (Integer)visit(ctx.codigo());
-        puntosBucle = (int)Math.pow(puntosBucle, 2);
+        if(ctx.codigo() != null)puntosBucle += (Integer)visit(ctx.codigo());
+        else if (ctx.sentencia_unica() != null) puntosBucle += (Integer)visit(ctx.sentencia_unica());
+        puntosBucle = (int) Math.pow(puntosBucle, 2);
+        
+
         return puntosBucle;
     }
     @Override
@@ -101,15 +107,14 @@ public class VisitorPropio extends ExprParserBaseVisitor{
                 puntosLlamadaF += (Integer)visit(parametro); //como un argumento puede ser una expr y estas pueden ser elementos puntos funcion tenemos que visitar cada una
             }
 
-        funcionVisitada.addLlamadasFuncion(1);
-        return puntosLlamadaF;
+            funcionVisitada.addLlamadasFuncion(1);
         }
         return puntosLlamadaF;
     }
     @Override
     public Integer visitCuerpoif(ExprParser.CuerpoifContext ctx) {
         int puntosIf = 0;
-        puntosIf += Math.pow((Integer) visit(ctx.expr()), 2);
+
 
         if(ctx.codigo() != null){
             ArrayList<ExprParser.CodigoContext> bloquesCodigo = new ArrayList<ExprParser.CodigoContext>(ctx.codigo());
@@ -123,7 +128,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     @Override
     public Integer visitCuerposwitch(ExprParser.CuerposwitchContext ctx) {
         int puntosSw = 0;
-        puntosSw += Math.pow((Integer)visit(ctx.expr()), 2);
+
 
         if(ctx.codigo() != null){
             ArrayList<ExprParser.CodigoContext> bloquesCodigo = new ArrayList<ExprParser.CodigoContext>(ctx.codigo());
@@ -132,6 +137,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
                 puntosSw += Math.pow((Integer)visit(bloque), 2);
             }
         }
+
         return puntosSw;
     }
 
@@ -158,7 +164,14 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     }
     @Override public Integer visitTerminalBool(ExprParser.TerminalBoolContext ctx) { return 0; }
     @Override public Integer visitTerminalInt(ExprParser.TerminalIntContext ctx) { return 0; }
-    @Override public Integer visitExprEntreParentesis(ExprParser.ExprEntreParentesisContext ctx) { return 0; }
     @Override public Integer visitExprId(ExprParser.ExprIdContext ctx) { return 0; }
     @Override public Integer visitTerminalString(ExprParser.TerminalStringContext ctx) { return 0; }
+    @Override public Integer visitExprEntreParentesis(ExprParser.ExprEntreParentesisContext ctx) {
+        return (Integer)visit(ctx.expr());
+    }
+    @Override
+    public Integer visitIgualdeasignacion_tok(ExprParser.Igualdeasignacion_tokContext ctx) {
+        funcionVisitada.addOperadorSimple(1);
+        return 1;
+    }
 }
