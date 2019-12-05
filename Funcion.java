@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Funcion{
 
@@ -70,5 +71,35 @@ public class Funcion{
         System.out.println("numero de operadores simples: " + this.nOperadoresSimples);
         System.out.println("Puntos Funcion: " + this.puntosTotales);
         System.out.println("Lineas efectivas: " + this.lineasEfectivas);
+    }
+
+    public void writeHtml(){
+      File archivo = new File("Resultado.html"); //Se hace en otro sitio y se le mete: <html> <head> <title>PECL3 Procesadores del lenguaje</title> </head><body> <h1>Resultados PECL3</h1>
+      //Al final del archivo habrá que ponerle fin a body y a html con </body> y </html>
+      Writer output;
+      String html = " <h1>Resultados PECL3</h1>
+                      <h2>" + this.nombre +"</h2>
+                      <ul>
+                      <li>Complejidad ciclomatica V(G):"+  +" </li>
+                      <li>Puntos funcion:<strong>"+ this.puntosTotales +"</strong> </li>
+                      <li>Resumen:
+                      <ul>
+                      <li>Variables declaradas:<strong>"+ this.nDeclaraciones +"</strong></li>
+                      <li>Lineas de codigo efectivas:<strong>"+ this.lineasEfectivas +"</strong></li>
+                      <li>Numero de parametros esperados:<strong>"+ this.nParametros +"</strong></li>
+                      <li>Numero de llamadas a funciones:<strong>"+ this.llamadasFuncion +"</strong></li>
+                      </ul>
+                      </li>
+                      <li>Grafico de complejidad ciclomatica:</li>
+                      </ul>
+                      <p><img src="fichero.svg" width="100%"/> </p>
+                      <hr />";
+      try{
+        output = new BufferedWriter(new FileWriter("Resultado.html", true));
+        output.append(html);
+        output.close();
+      } catch (IOException e){
+        e.printStackTrace();
+      }
     }
 }
