@@ -92,7 +92,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         if(ctx.codigo() != null)puntosBucle += (Integer)visit(ctx.codigo());
         else if (ctx.sentencia_unica() != null) puntosBucle += (Integer)visit(ctx.sentencia_unica());
         puntosBucle = (int) Math.pow(puntosBucle, 2);
-        
+
 
         return puntosBucle;
     }
@@ -174,4 +174,5 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         funcionVisitada.addOperadorSimple(1);
         return 1;
     }
+    //TODO: INCLUIR OPERACIONES AND Y OR PARA AÑADIR OPERADORES SIMPLES.
 }

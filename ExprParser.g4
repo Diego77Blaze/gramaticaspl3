@@ -37,8 +37,18 @@ cuerpobuclewhile: while_key abrir_parentesis_tok (expr) cerrar_parentesis_tok
             |(begin_key*
             codigo
             end_key*))
-;
+            ;
+
+
+bucle_for: cabecera_for
+           (codigo|(begin_key+ codigo end_key+))
+           enddo_key
+           ;
+
+cabecera_for: for_key identificador_tok from_key expr to_key expr (step_key expr)? do_key;
+
 forma_case: case_key expr dospuntos_tok;
+
 cuerposwitch: switch_key abrir_parentesis_tok expr cerrar_parentesis_tok
                 (forma_case begin_key? codigo (break_key finaldelinea_key)?)+
                 (default_key dospuntos_tok begin_key? codigo (break_key finaldelinea_key)?)?
@@ -47,21 +57,34 @@ cuerposwitch: switch_key abrir_parentesis_tok expr cerrar_parentesis_tok
 expr : expr (mult_tok|div_tok) expr #multDiv
     |   expr (sum_tok|res_tok) expr #sumRest
     |   expr (menor_tok|mayor_tok|iguales_tok|distinto_tok) expr #exprBooleana
+    |   expr (and_tok|or_tok) expr #opBooleana
     |   int_tok #terminalInt
     |   abrir_parentesis_tok expr cerrar_parentesis_tok #exprEntreParentesis
     |   identificador_tok #exprId
     |   booleano #terminalBool
     |   string_tok #terminalString
     |   llamadafuncion #exprLlamadaFuncion
+    //TODO expresiones array?
     ;
 
 
 codigo:sentencia_unica*;
-sentencia_unica: (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|cuerposwitch|devolver);
-declaracion:tipo identificador_tok (igualdeasignacion_tok expr  finaldelinea_key|finaldelinea_key);
+sentencia_unica: (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|cuerposwitch|devolver|bucle_for);
+declaracion:tipo identificador_tok ((igualdeasignacion_tok expr  finaldelinea_key)|finaldelinea_key);
+declaracion_array: tipo identificador_tok abrir_bracket_tok expr cerrar_bracket_tok
+                   ((igualdeasignacion_tok abrir_parentesis_tok expr (coma_tok expr)* cerrar_parentesis_tok finaldelinea_key)|finaldelinea_key);
 asignacion: identificador_tok igualdeasignacion_tok expr finaldelinea_key;
+asignacion_array: identificador_tok abrir_bracket_tok expr cerrar_bracket_tok igualdeasignacion_tok expr finaldelinea_key;
 booleano:TRUE|FALSE;
 
+
+
+for_key: FOR;
+from_key: FROM;
+to_key: TO;
+do_key: DO;
+enddo_key: ENDDO;
+step_key: STEP;
 include_key:INCLUDE;
 identificador_tok:IDENTIFICADOR;
 numero_key:NUMERO;
@@ -77,14 +100,19 @@ string_tok:STRING;
 while_key:WHILE;
 igualdeasignacion_tok:IGUALDEASIGNACION;
 devolver_key:DEVOLVER;
+
+
 mult_tok:MULT;
 div_tok:DIV;
 sum_tok:SUM;
 res_tok:RES;
+not_tok: NOT;
 mayor_tok:MAYOR;
 menor_tok:MENOR;
 iguales_tok:IGUALES;
 distinto_tok:DISTINTO;
+and_tok: AND;
+or_tok: OR;
 
 switch_key:SWITCH;
 end_switch_key:END_SWITCH;
@@ -97,6 +125,9 @@ then_key:THEN;
 else_key:ELSE;
 endif_key:ENDIF;
 
+
+abrir_bracket_tok:AB;
+cerrar_bracket_tok:CB;
 abrir_parentesis_tok:AP;
 cerrar_parentesis_tok:CP;
 finaldelinea_key:PUNTOYCOMA;

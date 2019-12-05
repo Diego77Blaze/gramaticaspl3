@@ -64,6 +64,18 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCuerpobuclewhile(ExprParser.CuerpobuclewhileContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ExprParser#bucle_for}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBucle_for(ExprParser.Bucle_forContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#cabecera_for}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCabecera_for(ExprParser.Cabecera_forContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ExprParser#forma_case}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -139,6 +151,13 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprBooleana(ExprParser.ExprBooleanaContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code opBooleana}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpBooleana(ExprParser.OpBooleanaContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ExprParser#codigo}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -157,17 +176,65 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclaracion(ExprParser.DeclaracionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ExprParser#declaracion_array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeclaracion_array(ExprParser.Declaracion_arrayContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ExprParser#asignacion}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAsignacion(ExprParser.AsignacionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ExprParser#asignacion_array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAsignacion_array(ExprParser.Asignacion_arrayContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ExprParser#booleano}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBooleano(ExprParser.BooleanoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#for_key}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor_key(ExprParser.For_keyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#from_key}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFrom_key(ExprParser.From_keyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#to_key}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTo_key(ExprParser.To_keyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#do_key}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDo_key(ExprParser.Do_keyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#enddo_key}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEnddo_key(ExprParser.Enddo_keyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#step_key}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStep_key(ExprParser.Step_keyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExprParser#include_key}.
 	 * @param ctx the parse tree
@@ -283,6 +350,12 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRes_tok(ExprParser.Res_tokContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ExprParser#not_tok}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNot_tok(ExprParser.Not_tokContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ExprParser#mayor_tok}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -306,6 +379,18 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDistinto_tok(ExprParser.Distinto_tokContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#and_tok}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnd_tok(ExprParser.And_tokContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#or_tok}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOr_tok(ExprParser.Or_tokContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExprParser#switch_key}.
 	 * @param ctx the parse tree
@@ -360,6 +445,18 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitEndif_key(ExprParser.Endif_keyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#abrir_bracket_tok}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAbrir_bracket_tok(ExprParser.Abrir_bracket_tokContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#cerrar_bracket_tok}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCerrar_bracket_tok(ExprParser.Cerrar_bracket_tokContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExprParser#abrir_parentesis_tok}.
 	 * @param ctx the parse tree

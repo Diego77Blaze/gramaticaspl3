@@ -1,5 +1,11 @@
 lexer grammar ExprLexer;
 //keywords
+FOR:'for';
+FROM: 'from';
+TO: 'to';
+DO: 'do';
+ENDDO: 'enddo';
+STEP: 'step';
 IF:'if';
 THEN:'then';
 ELSE:'else';
@@ -34,14 +40,22 @@ MULT:'*';
 DIV:'/';
 SUM:'+';
 RES:'-';
+NOT: '!';
 MENOR:'<';
 MAYOR:'>';
 DISTINTO:'!=';
 IGUALES:'==';
 IGUALDEASIGNACION:':=';
+AND: '&&';
+OR: '||';
+
+
+
 DOSPUNTOS:':';
 COMA: ',';
 PUNTOYCOMA:';';
+AB: '[';
+CB: ']';
 AP:'(';
 CP:')';
 ESC:'\\'[btnr"\\];
