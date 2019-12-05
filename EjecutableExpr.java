@@ -28,10 +28,22 @@ public class EjecutableExpr{
         parser.setBuildParseTree(true);
         ParseTree tree=parser.axioma();
 
+        File archivo = new File("Resultado.html"); //Se hace en otro sitio y se le mete: <html> <head> <title>PECL3 Procesadores del lenguaje</title> </head><body> <h1>Resultados PECL3</h1>
+        //Al final del archivo habrá que ponerle fin a body y a html con </body> y </html>
+
         VisitorPropio vp = new VisitorPropio(ts);
         vp.visit(tree);
 
-        ts.printHashMap();
+        ts.printHtml();
+        Writer output;
+        String htmlLine = "</body> </html>";
+        try{
+          output = new BufferedWriter(new FileWriter("Resultado.html", true));
+          output.append(htmlLine);
+          output.close();
+        } catch (IOException e){
+          e.printStackTrace();
+        }
         ts.generarResumenFunciones();
         resumenPuntosFuncion = ts.getResumenPuntosFuncion();
         resumenLineasEfectivas = ts.getResumenLineasEfectivas();

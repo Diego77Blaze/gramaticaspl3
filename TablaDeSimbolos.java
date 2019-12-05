@@ -30,6 +30,12 @@ public class TablaDeSimbolos{
             System.out.println();
         }
     }
+
+    public void printHtml(){
+        for (Funcion funcion : ts.values()){
+            funcion.printHtml();
+        }
+    }
     public void generarResumenFunciones(){
         for(Funcion funcion : ts.values()){
             resumenPuntosFuncion += funcion.getPuntosFuncion();
