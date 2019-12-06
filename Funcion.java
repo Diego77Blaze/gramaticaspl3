@@ -10,7 +10,7 @@ public class Funcion{
     private int llamadasFuncion;
     private int nOperadoresSimples;
     private int puntosTotales;
-    private int lineasEfectivas;
+    private int lineasEfectivas = 6;
 
     public Funcion(){
         this.nParametros = 0;

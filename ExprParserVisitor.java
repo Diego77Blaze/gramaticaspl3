@@ -76,18 +76,6 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCabecera_for(ExprParser.Cabecera_forContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ExprParser#forma_case}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitForma_case(ExprParser.Forma_caseContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExprParser#cuerposwitch}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCuerposwitch(ExprParser.CuerposwitchContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code exprEntreParentesis}
 	 * labeled alternative in {@link ExprParser#expr}.
 	 * @param ctx the parse tree
@@ -108,6 +96,13 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMultDiv(ExprParser.MultDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprNegacion}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprNegacion(ExprParser.ExprNegacionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code sumRest}
 	 * labeled alternative in {@link ExprParser#expr}.
@@ -150,13 +145,6 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprBooleana(ExprParser.ExprBooleanaContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code opBooleana}
-	 * labeled alternative in {@link ExprParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpBooleana(ExprParser.OpBooleanaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExprParser#codigo}.
 	 * @param ctx the parse tree
@@ -391,36 +379,6 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOr_tok(ExprParser.Or_tokContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExprParser#switch_key}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSwitch_key(ExprParser.Switch_keyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExprParser#end_switch_key}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEnd_switch_key(ExprParser.End_switch_keyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExprParser#case_key}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCase_key(ExprParser.Case_keyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExprParser#break_key}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBreak_key(ExprParser.Break_keyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ExprParser#default_key}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDefault_key(ExprParser.Default_keyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExprParser#if_key}.
 	 * @param ctx the parse tree

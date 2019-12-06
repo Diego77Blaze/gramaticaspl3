@@ -35,9 +35,23 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     public Integer visitCabecerafuncion(ExprParser.CabecerafuncionContext ctx) {
 
         ArrayList<ExprParser.Identificador_tokContext> listaId = new ArrayList<ExprParser.Identificador_tokContext>(ctx.identificador_tok());
-        String nombreFuncion = listaId.get(0).IDENTIFICADOR().getText();
         int puntosParam = (listaId.size()-1) * 2;
 
+        String nombreFuncion = ctx.funcion_key().FUNCION().getText() + " ";
+        nombreFuncion += listaId.get(0).IDENTIFICADOR().getText();
+        nombreFuncion += "(";
+        for(int i = 1; i < listaId.size(); i++){
+
+            nombreFuncion  += listaId.get(i).IDENTIFICADOR().getText();
+
+            if (i != listaId.size()-1)
+            {
+                nombreFuncion += ",";
+            }
+        }
+        nombreFuncion += "):";
+        ArrayList<ExprParser.TipoContext> tipos = new ArrayList<>(ctx.tipo());
+        nombreFuncion += tipos.get(tipos.size() - 1).getText();
 
         funcionVisitada.setNombre(nombreFuncion);
         funcionVisitada.addParametro(puntosParam/2);
@@ -72,11 +86,33 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     }
     @Override
     public Integer visitDeclaracion(ExprParser.DeclaracionContext ctx) {
-        int puntosDeclaracion = 1;
-        if (ctx.expr() != null){
-            puntosDeclaracion += (Integer)visit(ctx.igualdeasignacion_tok()) + (Integer)visit(ctx.expr());
+        //TODO: añadir declaraciones tipo numer var1, var2, var3;
+        int puntosDeclaracion = 0;
+
+        ArrayList<ExprParser.Identificador_tokContext> variables = new ArrayList<>(ctx.identificador_tok());
+
+        puntosDeclaracion += variables.size();
+
+        if (ctx.igualdeasignacion_tok() != null)
+        {
+            ArrayList<ExprParser.Igualdeasignacion_tokContext> asignaciones = new ArrayList<>(ctx.igualdeasignacion_tok());
+            for (ExprParser.Igualdeasignacion_tokContext igual : asignaciones)
+            {
+                puntosDeclaracion += (Integer) visit(igual);
+            }
+            this.funcionVisitada.addOperadorSimple(asignaciones.size());
         }
-        funcionVisitada.addDeclaraciones(1);
+
+        if (ctx.expr() != null)
+        {
+            ArrayList<ExprParser.ExprContext> exprAsignadas = new ArrayList<>(ctx.expr());
+            for (ExprParser.ExprContext exprAsignada : exprAsignadas)
+            {
+                puntosDeclaracion += (Integer)visit(exprAsignada);
+            }
+        }
+
+        funcionVisitada.addDeclaraciones(variables.size());
         return puntosDeclaracion;
     }
 
@@ -125,7 +161,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         }
         return puntosIf;
     }
-    @Override
+    /*@Override
     public Integer visitCuerposwitch(ExprParser.CuerposwitchContext ctx) {
         int puntosSw = 0;
 
@@ -139,7 +175,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         }
 
         return puntosSw;
-    }
+    }*/
 
     @Override
     public Integer visitMultDiv(ExprParser.MultDivContext ctx) {
@@ -174,5 +210,6 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         funcionVisitada.addOperadorSimple(1);
         return 1;
     }
-    //TODO: INCLUIR OPERACIONES AND Y OR PARA AÑADIR OPERADORES SIMPLES.
+    //TODO: INCLUIR OPERACIONES AND, NOT Y OR PARA AÑADIR OPERADORES SIMPLES.
+    //TODO: AÑADIR BUCLES FOR
 }

@@ -47,17 +47,13 @@ bucle_for: cabecera_for
 
 cabecera_for: for_key identificador_tok from_key expr to_key expr (step_key expr)? do_key;
 
-forma_case: case_key expr dospuntos_tok;
 
-cuerposwitch: switch_key abrir_parentesis_tok expr cerrar_parentesis_tok
-                (forma_case begin_key? codigo (break_key finaldelinea_key)?)+
-                (default_key dospuntos_tok begin_key? codigo (break_key finaldelinea_key)?)?
-                end_switch_key;
+
 
 expr : expr (mult_tok|div_tok) expr #multDiv
     |   expr (sum_tok|res_tok) expr #sumRest
-    |   expr (menor_tok|mayor_tok|iguales_tok|distinto_tok) expr #exprBooleana
-    |   expr (and_tok|or_tok) expr #opBooleana
+    |   expr (menor_tok|mayor_tok|iguales_tok|distinto_tok|and_tok|or_tok) expr #exprBooleana
+    |   not_tok expr #exprNegacion
     |   int_tok #terminalInt
     |   abrir_parentesis_tok expr cerrar_parentesis_tok #exprEntreParentesis
     |   identificador_tok #exprId
@@ -69,8 +65,8 @@ expr : expr (mult_tok|div_tok) expr #multDiv
 
 
 codigo:sentencia_unica*;
-sentencia_unica: (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|cuerposwitch|devolver|bucle_for);
-declaracion:tipo identificador_tok ((igualdeasignacion_tok expr  finaldelinea_key)|finaldelinea_key);
+sentencia_unica: (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|devolver|bucle_for);
+declaracion:tipo identificador_tok (igualdeasignacion_tok expr)?(coma_tok identificador_tok (igualdeasignacion_tok expr)?)*finaldelinea_key;
 declaracion_array: tipo identificador_tok abrir_bracket_tok expr cerrar_bracket_tok
                    ((igualdeasignacion_tok abrir_parentesis_tok expr (coma_tok expr)* cerrar_parentesis_tok finaldelinea_key)|finaldelinea_key);
 asignacion: identificador_tok igualdeasignacion_tok expr finaldelinea_key;
@@ -114,11 +110,11 @@ distinto_tok:DISTINTO;
 and_tok: AND;
 or_tok: OR;
 
-switch_key:SWITCH;
-end_switch_key:END_SWITCH;
-case_key:CASE;
-break_key:BREAK;
-default_key:DEFAULT;
+//switch_key:SWITCH;
+//end_switch_key:END_SWITCH;
+//case_key:CASE;
+//break_key:BREAK;
+//default_key:DEFAULT;
 
 if_key:IF;
 then_key:THEN;
