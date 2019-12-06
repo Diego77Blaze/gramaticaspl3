@@ -34,7 +34,19 @@ public class EjecutableExpr{
         VisitorPropio vp = new VisitorPropio(ts);
         vp.visit(tree);
 
-        ts.printHtml();
+
+
+        ts.generarResumenFunciones();
+        resumenPuntosFuncion = ts.getResumenPuntosFuncion();
+        resumenLineasEfectivas = ts.getResumenLineasEfectivas();
+        //PRINT EN CONSOLA
+        ts.printHashMap();
+        System.out.println("El resumen de puntosFuncion del programa es: " + resumenPuntosFuncion + " puntos en total");
+        System.out.println("El resumen de lineas efectivas del programa es: " + resumenLineasEfectivas + " lineas efectivas en total");
+
+
+        //PRINT EN HTML
+        ts.printHashMapToHtml();
         Writer output;
         String htmlLine = "</body> </html>";
         try{
@@ -44,12 +56,6 @@ public class EjecutableExpr{
         } catch (IOException e){
           e.printStackTrace();
         }
-        ts.generarResumenFunciones();
-        resumenPuntosFuncion = ts.getResumenPuntosFuncion();
-        resumenLineasEfectivas = ts.getResumenLineasEfectivas();
-
-        System.out.println("El resumen de puntosFuncion del programa es: " + resumenPuntosFuncion + " puntos en total");
-        System.out.println("El resumen de lineas efectivas del programa es: " + resumenLineasEfectivas + " lineas efectivas en total");
 
         //System.out.println(lprop.ruta);
     }

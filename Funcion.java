@@ -75,22 +75,22 @@ public class Funcion{
 
     public void writeHtml(){
       Writer output;
-      String htmlLine = " <h2>" + this.nombre +"</h2>
-                      <ul>
-                      <li>Complejidad ciclomatica V(G):"+  +" </li>
-                      <li>Puntos funcion:<strong>"+ this.puntosTotales +"</strong> </li>
-                      <li>Resumen:
-                      <ul>
-                      <li>Variables declaradas:<strong>"+ this.nDeclaraciones +"</strong></li>
-                      <li>Lineas de codigo efectivas:<strong>"+ this.lineasEfectivas +"</strong></li>
-                      <li>Numero de parametros esperados:<strong>"+ this.nParametros +"</strong></li>
-                      <li>Numero de llamadas a funciones:<strong>"+ this.llamadasFuncion +"</strong></li>
-                      </ul>
-                      </li>
-                      <li>Grafico de complejidad ciclomatica:</li>
-                      </ul>
+      String htmlLine = " <h2>" + this.nombre +"</h2>\n"
+                      +"<ul>\n"
+                      +"<li>Complejidad ciclomatica V(G):" +" </li>\n"
+                      +"<li>Puntos funcion:<strong>" + this.puntosTotales + "</strong> </li>\n"
+                      +"<li>Resumen:"
+                      +"<ul>\n"
+                      +"<li>Variables declaradas:<strong> "+ this.nDeclaraciones + "</strong></li>\n"
+                      +"<li>Lineas de codigo efectivas:<strong>" + this.lineasEfectivas + "</strong></li>\n"
+                      +"<li>Numero de parametros esperados:<strong>" + this.nParametros +"</strong></li>\n"
+                      +"<li>Numero de llamadas a funciones:<strong>" + this.llamadasFuncion + "</strong></li>\n"
+                      +"</ul>\n"
+                      +"</li>\n"
+                      +"<li>Grafico de complejidad ciclomatica:</li>\n"
+                      +"</ul>\n"
 
-                      <hr />";//<p><img src="fichero.svg" width="100%"/> </p>
+                      +"<hr />\n";//<p><img src="fichero.svg" width="100%"/> </p>
       try{
         output = new BufferedWriter(new FileWriter("Resultado.html", true));
         output.append(htmlLine);

@@ -31,9 +31,9 @@ public class TablaDeSimbolos{
         }
     }
 
-    public void printHtml(){
+    public void printHashMapToHtml(){
         for (Funcion funcion : ts.values()){
-            funcion.printHtml();
+            funcion.writeHtml();
         }
     }
     public void generarResumenFunciones(){
