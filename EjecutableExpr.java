@@ -50,7 +50,7 @@ public class EjecutableExpr{
         Writer output;
         String htmlLine = "</body> </html>";
         try{
-          output = new BufferedWriter(new FileWriter("Resultado.html", true));
+          output = new BufferedWriter(new FileWriter("Resultado.html", false));
           output.append(htmlLine);
           output.close();
         } catch (IOException e){
