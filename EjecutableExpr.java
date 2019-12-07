@@ -46,7 +46,7 @@ public class EjecutableExpr{
 
 
         //PRINT EN HTML
-        ts.printHashMapToHtml();
+
         Writer output;
         String htmlLine = "</body> </html>";
         try{
@@ -56,6 +56,7 @@ public class EjecutableExpr{
         } catch (IOException e){
           e.printStackTrace();
         }
+        ts.printHashMapToHtml();
 
         //System.out.println(lprop.ruta);
     }
