@@ -3,8 +3,8 @@ import java.util.*;
 public class TablaDeSimbolos{
 
     private HashMap<String, Funcion> ts;
-    private int resumenPuntosFuncion;
-    private int resumenLineasEfectivas;
+    private long resumenPuntosFuncion;
+    private long resumenLineasEfectivas;
 
     public TablaDeSimbolos(){
         this.ts = new HashMap<String, Funcion>();
@@ -12,11 +12,11 @@ public class TablaDeSimbolos{
         this.resumenLineasEfectivas = 0;
     }
 
-    public int getResumenPuntosFuncion()
+    public long getResumenPuntosFuncion()
     {
         return this.resumenPuntosFuncion;
     }
-    public int getResumenLineasEfectivas()
+    public long getResumenLineasEfectivas()
     {
         return this.resumenLineasEfectivas;
     }

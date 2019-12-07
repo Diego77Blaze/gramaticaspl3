@@ -9,9 +9,9 @@ public class EjecutableExpr{
     public static void main(String[] args) throws Exception{
         TablaDeSimbolos ts = new TablaDeSimbolos();
         String inputFile = null;
-        int resumenPuntosFuncion  = 0;
-        int resumenLineasEfectivas = 0;
-        int puntosTotales;
+        long resumenPuntosFuncion  = 0;
+        long resumenLineasEfectivas = 0;
+        long puntosTotales;
 
         if(args.length>0){inputFile=args[0];}
 

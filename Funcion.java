@@ -5,12 +5,12 @@ public class Funcion{
 
 
     private String nombre;
-    private int nParametros;
-    private int nDeclaraciones;
-    private int llamadasFuncion;
-    private int nOperadoresSimples;
-    private int puntosTotales;
-    private int lineasEfectivas = 6;
+    private long nParametros;
+    private long nDeclaraciones;
+    private long llamadasFuncion;
+    private long nOperadoresSimples;
+    private long puntosTotales;
+    private long lineasEfectivas = 6;
 
     public Funcion(){
         this.nParametros = 0;
@@ -21,23 +21,23 @@ public class Funcion{
         this.lineasEfectivas = 0;
     }
 
-    public void addParametro(int puntos)
+    public void addParametro(long puntos)
     {
         this.nParametros += puntos;
     }
-    public void addDeclaraciones(int puntos)
+    public void addDeclaraciones(long puntos)
     {
         this.nDeclaraciones += puntos;
     }
-    public void addLlamadasFuncion(int puntos)
+    public void addLlamadasFuncion(long puntos)
     {
         this.llamadasFuncion += puntos;
     }
-    public void addOperadorSimple(int puntos)
+    public void addOperadorSimple(long puntos)
     {
         this.nOperadoresSimples += puntos;
     }
-    public void addLineaEfectiva(int puntos)
+    public void addLineaEfectiva(long puntos)
     {
         this.lineasEfectivas += puntos;
     }
@@ -50,15 +50,15 @@ public class Funcion{
     {
         return this.nombre;
     }
-    public void setPuntosFuncion(int puntos)
+    public void setPuntosFuncion(long puntos)
     {
         this.puntosTotales = puntos;
     }
-    public int getLineasEfectivas()
+    public long getLineasEfectivas()
     {
         return this.lineasEfectivas;
     }
-    public int getPuntosFuncion()
+    public long getPuntosFuncion()
     {
         return this.puntosTotales;
     }
