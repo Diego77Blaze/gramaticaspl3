@@ -31,10 +31,12 @@ public class TablaDeSimbolos{
         }
     }
 
-    public void printHashMapToHtml(){
+    public String printHashMapToHtml(){
+        String textoHtml = "";
         for (Funcion funcion : ts.values()){
-            funcion.writeHtml();
+            textoHtml += funcion.writeHtml();
         }
+        return textoHtml;
     }
     public void generarResumenFunciones(){
         for(Funcion funcion : ts.values()){
@@ -42,5 +44,6 @@ public class TablaDeSimbolos{
             resumenLineasEfectivas += funcion.getLineasEfectivas();
         }
     }
+
 
 }

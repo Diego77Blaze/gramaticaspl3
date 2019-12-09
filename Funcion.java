@@ -73,30 +73,25 @@ public class Funcion{
         System.out.println("Lineas efectivas: " + this.lineasEfectivas);
     }
 
-    public void writeHtml(){
+    public String writeHtml(){
       Writer output;
-      String htmlLine = " <h2>" + this.nombre +"</h2>\n"
+      String htmlLine = " \n <h2>" + this.nombre +"</h2>\n"
                       +"<ul>\n"
                       +"<li>Complejidad ciclomatica V(G):" +" </li>\n"
                       +"<li>Puntos funcion:<strong>" + this.puntosTotales + "</strong> </li>\n"
                       +"<li>Resumen:"
                       +"<ul>\n"
                       +"<li>Variables declaradas:<strong> "+ this.nDeclaraciones + "</strong></li>\n"
-                      +"<li>Lineas de codigo efectivas:<strong>" + this.lineasEfectivas + "</strong></li>\n"
-                      +"<li>Numero de parametros esperados:<strong>" + this.nParametros +"</strong></li>\n"
-                      +"<li>Numero de llamadas a funciones:<strong>" + this.llamadasFuncion + "</strong></li>\n"
+                      +"<li>Lineas de codigo efectivas:<strong> " + this.lineasEfectivas + "</strong></li>\n"
+                      +"<li>Numero de parametros esperados:<strong> " + this.nParametros +"</strong></li>\n"
+                      +"<li>Numero de llamadas a funciones:<strong> " + this.llamadasFuncion + "</strong></li>\n"
                       +"</ul>\n"
                       +"</li>\n"
-                      +"<li>Grafico de complejidad ciclomatica:</li>\n"
+                      +"<li>Grafo de complejidad ciclomatica:</li>\n"
                       +"</ul>\n"
+                      +"<hr />\n";
+                      //<p><img src="fichero.svg" width="100%"/> </p>
 
-                      +"<hr />\n";//<p><img src="fichero.svg" width="100%"/> </p>
-      try{
-        output = new BufferedWriter(new FileWriter("Resultado.html", true));
-        output.append(htmlLine);
-        output.close();
-      } catch (IOException e){
-        e.printStackTrace();
-      }
+      return htmlLine;
     }
 }
