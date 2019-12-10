@@ -12,8 +12,8 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     private TablaDeSimbolos ts;
     private long puntosFuncion;
 
-    public VisitorPropio(TablaDeSimbolos ts){
-        this.ts = ts;
+    public VisitorPropio(TablaDeSimbolos ts1){
+        this.ts = ts1;
         puntosFuncion = 0L;
 
     }
@@ -126,9 +126,9 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         long puntosBucle = 0L;
 
         puntosBucle += (Long)visit(ctx.expr());
-        if(ctx.codigo() != null)puntosBucle += (Long)visit(ctx.codigo());
-        else if (ctx.sentencia_unica() != null) puntosBucle += (Long)visit(ctx.sentencia_unica());
-        puntosBucle = (long) Math.pow(puntosBucle, 2);
+        if(ctx.codigo() != null)puntosBucle += (long)Math.pow((Long)visit(ctx.codigo()), 2);
+        else if (ctx.sentencia_unica() != null) puntosBucle += (long)Math.pow((Long)visit(ctx.sentencia_unica()), 2);
+        //puntosBucle = (long) Math.pow(puntosBucle, 2);
 
 
         return puntosBucle;
@@ -214,11 +214,12 @@ public class VisitorPropio extends ExprParserBaseVisitor{
 
     //TODO: INCLUIR OPERACIONES AND, NOT Y OR PARA AÑADIR OPERADORES SIMPLES.
     //TODO: AÑADIR BUCLES FOR
+    //TODO: lineas efectivas de if else
     @Override
     public Long visitBucle_for(ExprParser.Bucle_forContext ctx) {
         long puntosFor = 0L;
         if (ctx.codigo() != null){
-            puntosFor +=    (Long)visit(ctx.codigo());
+            puntosFor += (Long)visit(ctx.codigo());
         }
         puntosFor = (long) Math.pow(puntosFor, 2);
         return puntosFor;
@@ -227,5 +228,10 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     public Long visitExprNegacion(ExprParser.ExprNegacionContext ctx) {
         funcionVisitada.addOperadorSimple(1);
         return 1L + (Long)visit(ctx.expr());
+    }
+    @Override
+    public Long visitElse_key(ExprParser.Else_keyContext ctx) {
+        funcionVisitada.addLineaEfectiva(1);
+        return 0L;
     }
 }
