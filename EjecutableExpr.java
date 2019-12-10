@@ -47,15 +47,24 @@ public class EjecutableExpr{
 
         //PRINT EN HTML
         Writer output;
-        String htmlLine = "</body> </html>";
+        String htmlClose = "\n</body> </html>";
+        String htmlResumen =  "<li>Resumen Puntos Funcion:<strong> " + ts.getResumenPuntosFuncion()+ "</strong></li>\n"
+                              +"<li>Resumen Lineas Efectivas:<strong> " + ts.getResumenLineasEfectivas()+ "</strong></li>\n"
+                              +"<li>Resumen Grafo de Llamadas a Funcion:<strong> " + "HAY QUE METER ALGO NINIO"+ "</strong></li>\n";
+                              //+"<li>Resumen Puntos Funcion:<strong>" + HAY QUE COGELLA()+ "</strong></li>\n"
+        String htmlLine = "<body> <html> \n";
         try{
           output = new BufferedWriter(new FileWriter("Resultado.html", false));
           output.append(htmlLine);
+          output.append(ts.printHashMapToHtml());
+          output.append(htmlResumen);
+          output.append(htmlClose);
+
           output.close();
         } catch (IOException e){
           e.printStackTrace();
         }
-        ts.printHashMapToHtml();
+
 
         //System.out.println(lprop.ruta);
     }
