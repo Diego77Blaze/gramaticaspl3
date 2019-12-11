@@ -9,11 +9,11 @@ import java.util.*;
 public class VisitorComplejidad extends ExprParserBaseVisitor{
 
     private TablaDeSimbolosComplejidad ts;
-    
+
 
     public VisitorComplejidad(TablaDeSimbolosComplejidad ts){
         this.ts = ts;
-        
+
 
     }
     @Override
@@ -23,23 +23,23 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         if(ctx.codigo()!=null){visit(ctx.codigo());}
         if(ctx.cuerpofuncion()!=null){visit(ctx.cuerpofuncion());}
 
-        
+
     }
     @Override
     public void visitCodigo(ExprParser.CodigoContext ctx) {if(ctx.sentencia_unica()!=null){visit(ctx.sentencia_unica);}}
     @Override
     public void visitSentencia_unica(ExprParser.Sentencia_unicaContext ctx) {visitChildren(ctx);  }
-    
+
     @Override
     public void visitCuerpobuclewhile(ExprParser.CuerpobuclewhileContext ctx) {
         Integer nodo= ts.addNewNode();
         if(ctx.sentencia_unica()!=null){
             visit(ctx.sentencia_unica());
-        
+
         }
-        if(ctx.codigo()!=null){ 
+        if(ctx.codigo()!=null){
             visit(ctx.codigo());
-        
+
         }
         Integer nodo2=ts.addNewNode();
         ts.addValor(nodo2-1,nodo2);
@@ -54,24 +54,24 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         Integer nodo= ts.addNewNode();
         if(ctx.sentencia_unica()!=null){
             visit(ctx.sentencia_unica());
-        
+
         }
-        if(ctx.codigo()!=null){ 
+        if(ctx.codigo()!=null){
             visit(ctx.codigo());
-        
+
         }
         Integer nodo2=ts.addNewNode();
         ts.addValor(nodo2-1,nodo2);
         ts.addValor(nodo2,nodo);
         Integer nodo3=ts.addNewNode();
         ts.addValor(nodo,nodo3);
-    }   
+    }
     @Override
     public void visitCuerpoif(ExprParser.CuerpoifContext ctx) {
         Integer nodo=ts.addNewNode();
         ts.addValor(nodo-1,nodo);
         if(ctx.codigo()!=null){visit(ctx.codigo());}
-        if(ctx.else_key()!=null){ 
+        if(ctx.else_key()!=null){
             Integer nodo2=ts.addNewNode();
             Integer nodo3=ts.addNewNode();
             Integer nodo4=ts.addNewNode();
@@ -82,12 +82,12 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
             Integer nodo4=ts.addNewNode();
         }
 
-    }   
-    
+    }
+
     @Override
     public void visitElse_key(ExprParser.Else_keyContext ctx) {}
 
-    
+
 
     @Override
     public void visitDevolver(ExprParser.DevolverContext ctx) {
