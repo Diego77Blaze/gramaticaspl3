@@ -13,10 +13,7 @@ public class TablaDeSimbolosComplejidad{
 
 
     }
-    /*public Integer getLastNode(){
-        tablaSimbolos.keySet().toArray();
-
-    }*/
+    
     public void addValor(Integer key, Integer valor){
         if(tablaSimbolos.get(key)!=null){
             tablaSimbolos.get(key).add(valor);
@@ -25,6 +22,6 @@ public class TablaDeSimbolosComplejidad{
             tablaSimbolos.put(key,valores);
         }else {System.out.println("error");}
     }
-    //TODO see codigo en visitorpropio por si hay varios hijos
+
 
 }
