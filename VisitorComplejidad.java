@@ -17,22 +17,32 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
 
     }
     @Override
-    public void visitCuerpofuncion(ExprParser.CuerpofuncionContext ctx) {
+    public Integer visitCuerpofuncion(ExprParser.CuerpofuncionContext ctx) {
         ArrayList<Integer> valores;
         ts.addNewNode();
         if(ctx.codigo()!=null){visit(ctx.codigo());}
-        if(ctx.cuerpofuncion()!=null){visit(ctx.cuerpofuncion());}
 
-
+        return 0;
     }
     @Override
-    public void visitCodigo(ExprParser.CodigoContext ctx) {if(ctx.sentencia_unica()!=null){visit(ctx.sentencia_unica);}}
+    public Integer visitCodigo(ExprParser.CodigoContext ctx) {
+        Integer useless=0;
+        if(ctx.sentencia_unica()!=null){
+            ArrayList<ExprParser.Sentencia_unicaContext> sentencias = new ArrayList<ExprParser.Sentencia_unicaContext>(ctx.sentencia_unica());
+
+            for(ExprParser.Sentencia_unicaContext linea: sentencias){
+                useless += (Integer)visit(linea);
+            }
+        }
+        return 0;
+    }
     @Override
-    public void visitSentencia_unica(ExprParser.Sentencia_unicaContext ctx) {visitChildren(ctx);  }
+    public Integer visitSentencia_unica(ExprParser.Sentencia_unicaContext ctx) {visitChildren(ctx);  return 0;}
 
     @Override
-    public void visitCuerpobuclewhile(ExprParser.CuerpobuclewhileContext ctx) {
+    public Integer visitCuerpobuclewhile(ExprParser.CuerpobuclewhileContext ctx) {
         Integer nodo= ts.addNewNode();
+        ts.addValor(nodo-1,nodo);
         if(ctx.sentencia_unica()!=null){
             visit(ctx.sentencia_unica());
 
@@ -46,16 +56,13 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         ts.addValor(nodo2,nodo);
         Integer nodo3=ts.addNewNode();
         ts.addValor(nodo,nodo3);
-
+        return 0;
 
     }
     @Override
-    public void visitBucle_for(ExprParser.Bucle_forContext ctx) {
+    public Integer visitBucle_for(ExprParser.Bucle_forContext ctx) {
         Integer nodo= ts.addNewNode();
-        if(ctx.sentencia_unica()!=null){
-            visit(ctx.sentencia_unica());
-
-        }
+        ts.addValor(nodo-1,nodo);
         if(ctx.codigo()!=null){
             visit(ctx.codigo());
 
@@ -65,53 +72,73 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         ts.addValor(nodo2,nodo);
         Integer nodo3=ts.addNewNode();
         ts.addValor(nodo,nodo3);
+        return 0;
+
     }
     @Override
-    public void visitCuerpoif(ExprParser.CuerpoifContext ctx) {
+    public Integer visitCuerpoif(ExprParser.CuerpoifContext ctx) {
+        Integer useless=0;
         Integer nodo=ts.addNewNode();
         ts.addValor(nodo-1,nodo);
-        if(ctx.codigo()!=null){visit(ctx.codigo());}
+        if(ctx.codigo()!=null){
+
+                ArrayList<ExprParser.CodigoContext> sentencias = new ArrayList<ExprParser.CodigoContext>(ctx.codigo());
+
+            for(ExprParser.CodigoContext linea: sentencias){
+                useless += (Integer)visit(linea);
+            }
+        }
         if(ctx.else_key()!=null){
             Integer nodo2=ts.addNewNode();
             Integer nodo3=ts.addNewNode();
             Integer nodo4=ts.addNewNode();
+            ts.addValor(nodo,nodo2);
+            ts.addValor(nodo,nodo3);
+            ts.addValor(nodo2,nodo4);
+            ts.addValor(nodo3,nodo4);
+            return 0;
         }
         else{
             Integer nodo2=ts.addNewNode();
             Integer nodo3=ts.addNewNode();
-            Integer nodo4=ts.addNewNode();
+            ts.addValor(nodo,nodo2);
+            ts.addValor(nodo,nodo3);
+            ts.addValor(nodo2,nodo3);
         }
+        return 0;
 
     }
-
-    @Override
-    public void visitElse_key(ExprParser.Else_keyContext ctx) {}
 
 
 
     @Override
-    public void visitDevolver(ExprParser.DevolverContext ctx) {
+    public Integer visitDevolver(ExprParser.DevolverContext ctx) {
         Integer nodo= ts.addNewNode();
         ts.addValor(nodo-1,nodo);
+        return 0;
     }
     @Override
-    public void visitDeclaracion(ExprParser.DeclaracionContext ctx) {
+    public Integer visitDeclaracion(ExprParser.DeclaracionContext ctx) {
         Integer nodo= ts.addNewNode();
         ts.addValor(nodo-1,nodo);
+        return 0;
     }
     @Override
-    public void visitAsignacion(ExprParser.AsignacionContext ctx) {
+    public Integer visitAsignacion(ExprParser.AsignacionContext ctx) {
         Integer nodo= ts.addNewNode();
         ts.addValor(nodo-1,nodo);
+        return 0;
     }
     @Override
-    public void visitLlamadafuncion(ExprParser.LlamadafuncionContext ctx) {
+    public Integer visitLlamadafuncion(ExprParser.LlamadafuncionContext ctx) {
         Integer nodo= ts.addNewNode();
         ts.addValor(nodo-1,nodo);
+        return 0;
     }
     @Override
-    public void visitExprLlamadaFuncion(ExprParser.ExprLlamadaFuncionContext ctx) {
+    public Integer visitExprLlamadaFuncion(ExprParser.ExprLlamadaFuncionContext ctx) {
         Integer nodo= ts.addNewNode();
         ts.addValor(nodo-1,nodo);
+        return 0;
     }
 }
