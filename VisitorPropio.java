@@ -3,6 +3,8 @@ import org.antlr.v4.runtime.tree.*;
 import java.util.*;
 
 
+//TODO REALIZAR DIAGRAMA DE LLAMADAS FUNCION
+//TODO SUMAR ASIGNACION DEL FOR Y DECLARACION
 
 
 
@@ -136,7 +138,8 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     @Override
     public Long visitLlamadafuncion(ExprParser.LlamadafuncionContext ctx) {
         long puntosLlamadaF = 2L; //hemos llegado a una llamada a funcion a si que como minimo su puntuacion sera 2
-
+        String nombreFuncionLlamada = ctx.identificador_tok().IDENTIFICADOR().getText();
+        funcionVisitada.addFuncionLlamada(nombreFuncionLlamada);
         if(ctx.expr() != null){
             ArrayList<ExprParser.ExprContext> parametrosLlamadaF = new ArrayList<ExprParser.ExprContext>(ctx.expr());
             puntosLlamadaF += parametrosLlamadaF.size(); //al valor minimo de 2 se le sumara 1 por cada parametro que use la funcion

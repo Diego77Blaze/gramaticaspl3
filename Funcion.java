@@ -11,6 +11,7 @@ public class Funcion{
     private long nOperadoresSimples;
     private long puntosTotales;
     private long lineasEfectivas = 6;
+    private ArrayList<String> LlamadasFuncion;
 
     public Funcion(){
         this.nParametros = 0;
@@ -19,8 +20,12 @@ public class Funcion{
         this.nOperadoresSimples = 0;
         this.puntosTotales = 0;
         this.lineasEfectivas = 0;
+        this.LlamadasFuncion = new ArrayList<String>();
     }
 
+    public ArrayList<String> getLlamadasFuncion(){
+        return this.LlamadasFuncion;
+    }
     public void addParametro(long puntos)
     {
         this.nParametros += puntos;
@@ -71,6 +76,10 @@ public class Funcion{
         System.out.println("numero de operadores simples: " + this.nOperadoresSimples);
         System.out.println("Puntos Funcion: " + this.puntosTotales);
         System.out.println("Lineas efectivas: " + this.lineasEfectivas);
+        System.out.println("Lista de funciones llamadas: \n");
+        for (String funcion : LlamadasFuncion){
+            System.out.println(funcion);
+        }
     }
 
     public String writeHtml(){
@@ -94,4 +103,10 @@ public class Funcion{
 
       return htmlLine;
     }
+    public void addFuncionLlamada(String nombreFuncion){
+        if (!this.LlamadasFuncion.contains(nombreFuncion)){
+            this.LlamadasFuncion.add(nombreFuncion);
+        }
+    }
+
 }
