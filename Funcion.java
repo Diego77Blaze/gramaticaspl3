@@ -14,6 +14,7 @@ public class Funcion{
     private ArrayList<String> LlamadasFuncion;
 
     public Funcion(){
+        this.nombre = "";
         this.nParametros = 0;
         this.nDeclaraciones = 0;
         this.llamadasFuncion = 0;
@@ -78,29 +79,32 @@ public class Funcion{
         System.out.println("Lineas efectivas: " + this.lineasEfectivas);
         System.out.println("Lista de funciones llamadas: \n");
         for (String funcion : LlamadasFuncion){
-            System.out.println(funcion);
+            System.out.println("\t" + funcion);
         }
     }
 
     public String writeHtml(){
       Writer output;
-      String htmlLine = " \n <h2>" + this.nombre +"</h2>\n"
-                      +"<ul>\n"
-                      +"<li>Complejidad ciclomatica V(G):" +" </li>\n"
-                      +"<li>Puntos funcion:<strong>" + this.puntosTotales + "</strong> </li>\n"
-                      +"<li>Resumen:"
-                      +"<ul>\n"
-                      +"<li>Variables declaradas:<strong> "+ this.nDeclaraciones + "</strong></li>\n"
-                      +"<li>Lineas de codigo efectivas:<strong> " + this.lineasEfectivas + "</strong></li>\n"
-                      +"<li>Numero de parametros esperados:<strong> " + this.nParametros +"</strong></li>\n"
-                      +"<li>Numero de llamadas a funciones:<strong> " + this.llamadasFuncion + "</strong></li>\n"
-                      +"</ul>\n"
-                      +"</li>\n"
-                      +"<li>Grafo de complejidad ciclomatica:</li>\n"
-                      +"</ul>\n"
-                      +"<hr />\n";
-                      //<p><img src="fichero.svg" width="100%"/> </p>
+      String htmlLine = "";
+      if (!this.nombre.equals("")){
 
+           htmlLine = " \n <h2>" + this.nombre +"</h2>\n"
+                          +"<ul>\n"
+                          +"<li>Complejidad ciclomatica V(G):" +" </li>\n"
+                          +"<li>Puntos funcion:<strong>" + this.puntosTotales + "</strong> </li>\n"
+                          +"<li>Resumen:"
+                          +"<ul>\n"
+                          +"<li>Variables declaradas:<strong> "+ this.nDeclaraciones + "</strong></li>\n"
+                          +"<li>Lineas de codigo efectivas:<strong> " + this.lineasEfectivas + "</strong></li>\n"
+                          +"<li>Numero de parametros esperados:<strong> " + this.nParametros +"</strong></li>\n"
+                          +"<li>Numero de llamadas a funciones:<strong> " + this.llamadasFuncion + "</strong></li>\n"
+                          +"</ul>\n"
+                          +"</li>\n"
+                          +"<li>Grafo de complejidad ciclomatica:</li>\n"
+                          +"</ul>\n"
+                          +"<hr />\n";
+                      //<p><img src="fichero.svg" width="100%"/> </p>
+      }
       return htmlLine;
     }
     public void addFuncionLlamada(String nombreFuncion){

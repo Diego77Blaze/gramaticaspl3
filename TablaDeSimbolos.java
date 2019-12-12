@@ -30,15 +30,19 @@ public class TablaDeSimbolos{
 
     public void printHashMap(){
         for (Funcion funcion : ts.values()){
-            funcion.printAttributes();
-            System.out.println();
+            if (!funcion.getNombre().equals("")){
+                funcion.printAttributes();
+                System.out.println();
+            }
         }
     }
 
     public String printHashMapToHtml(){
         String textoHtml = "";
         for (Funcion funcion : ts.values()){
-            textoHtml += funcion.writeHtml();
+            if (!funcion.getNombre().equals("")){
+                textoHtml += funcion.writeHtml();
+            }
         }
         return textoHtml;
     }
@@ -80,16 +84,18 @@ public class TablaDeSimbolos{
     }
 
     public String generarGrafoLlamadasFuncion(String nombreFuncion, boolean nombreSimple){
+        HashMap<String, Funcion> copiaTDS = this.ts;
+
         if (nombreSimple){                                                              //si es un nombre simple i.e main y la TDS contiene la
-            if(this.ts.containsKey(conversionNombre(nombreFuncion))) {
+            if(copiaTDS.containsKey(conversionNombre(nombreFuncion))) {
                 nombreFuncion = conversionNombre(nombreFuncion);                        //clave function main():void convierte el nombre simple
             }
             else{                                                                       //se convierte a nombrecomplejo para poder acceder a la clave
-                this.ts.put(nombreFuncion, new Funcion());
+                copiaTDS.put(nombreFuncion, new Funcion());
             }                                                                           //si no, es una funcion del lenguaje y la añade vacia al HM
         }
 
-        ArrayList<String>funcionesLlamadas = this.ts.get(nombreFuncion).getLlamadasFuncion();
+        ArrayList<String>funcionesLlamadas = copiaTDS.get(nombreFuncion).getLlamadasFuncion();
         String capaGrafo = "";
 
 

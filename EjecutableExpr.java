@@ -60,7 +60,7 @@ public class EjecutableExpr{
             String htmlClose = "\n</body> </html>";
             String htmlResumen =  "<li>Resumen Puntos Funcion:<strong> " + ts.getResumenPuntosFuncion()+ "</strong></li>\n"
                                   +"<li>Resumen Lineas Efectivas:<strong> " + ts.getResumenLineasEfectivas()+ "</strong></li>\n"
-                                  +"<li>Resumen Grafo de Llamadas a Funcion:<strong> " + "HAY QUE METER ALGO NINIO"+ "</strong></li>\n"
+                                  +"<li>Resumen Grafo de Llamadas a Funcion: <strong>" + funcionArg + "</strong></li>\n"
                                   +"<p><img src="+"DiagramaLlamadas.svg"+" width="+"100%"+"/></p>";
                                   //+"<li>Resumen Puntos Funcion:<strong>" + HAY QUE COGELLA()+ "</strong></li>\n"
             String htmlLine = "<body> <html> \n";
