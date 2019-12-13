@@ -3,10 +3,10 @@ import org.antlr.v4.runtime.tree.*;
 import java.util.*;
 
 
-//TODO REALIZAR DIAGRAMA DE LLAMADAS FUNCION
-//TODO SUMAR ASIGNACION DEL FOR Y DECLARACION E IF PARA LINEAS Efectivas
-//TODO EN DECLARACIONES CON ASIGNACION SUMAR DOS EN LINEA EFECTIVA SI EL PROFE DICE QUE ES ASI
-//TODO UNA VEZ CREADA NUEVA EXPRESION ARRAY, 
+
+
+
+
 
 
 
@@ -90,7 +90,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     }
     @Override
     public Long visitDeclaracion(ExprParser.DeclaracionContext ctx) {
-        //TODO: añadir declaraciones tipo numer var1, var2, var3;
+
         long puntosDeclaracion = 0L;
 
         ArrayList<ExprParser.Identificador_tokContext> variables = new ArrayList<>(ctx.identificador_tok());
@@ -105,6 +105,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
                 puntosDeclaracion += (Long) visit(igual);
             }
             this.funcionVisitada.addOperadorSimple(asignaciones.size());
+            funcionVisitada.addLineaEfectiva(1);
         }
 
         if (ctx.expr() != null)
@@ -119,11 +120,29 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         funcionVisitada.addDeclaraciones(variables.size());
         return puntosDeclaracion;
     }
+    @Override
+    public Long visitDeclaracion_array(ExprParser.Declaracion_arrayContext ctx) {
+        long puntosDeclaracionArray = 1L;
+        puntosDeclaracionArray += (Long)visit(ctx.expr(0));
+
+        if (ctx.igualdeasignacion_tok() != null){
+            puntosDeclaracionArray += (Long)visit(ctx.igualdeasignacion_tok());
+            for (int i = 1; i < ctx.expr().size(); i++){
+                puntosDeclaracionArray += (Long) visit(ctx.expr(i));
+            }
+        }
+        funcionVisitada.addDeclaraciones(1);
+        return puntosDeclaracionArray;
+    }
 
     @Override
     public Long visitAsignacion(ExprParser.AsignacionContext ctx) {
 
         return (Long)visit(ctx.expr()) + (Long)visit(ctx.igualdeasignacion_tok());
+    }
+    @Override
+    public Long visitAsignacion_array(ExprParser.Asignacion_arrayContext ctx) {
+        return (Long) visit(ctx.igualdeasignacion_tok()) + (Long) visit(ctx.expr(0)) + (Long) visit(ctx.expr(1));
     }
     @Override
     public Long visitCuerpobuclewhile(ExprParser.CuerpobuclewhileContext ctx) {
@@ -204,6 +223,14 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     public Long visitExprLlamadaFuncion(ExprParser.ExprLlamadaFuncionContext ctx) {
         return (Long)visit(ctx.llamadafuncion());
     }
+    @Override
+    public Long visitExprArray(ExprParser.ExprArrayContext ctx) {
+         return (Long) visit(ctx.expr_array());
+    }
+    @Override
+    public Long visitExpr_array(ExprParser.Expr_arrayContext ctx) {
+        return (Long) visit(ctx.expr());
+    }
     @Override public Long visitTerminalBool(ExprParser.TerminalBoolContext ctx) { return 0L; }
     @Override public Long visitTerminalInt(ExprParser.TerminalIntContext ctx) { return 0L; }
     @Override public Long visitExprId(ExprParser.ExprIdContext ctx) { return 0L; }
@@ -217,16 +244,20 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         return 1L;
     }
 
-    //TODO: INCLUIR OPERACIONES AND, NOT Y OR PARA AÑADIR OPERADORES SIMPLES.
-    //TODO: AÑADIR BUCLES FOR
-    //TODO: lineas efectivas de if else
+
+
+
     @Override
     public Long visitBucle_for(ExprParser.Bucle_forContext ctx) {
-        long puntosFor = 0L;
+        long puntosFor = 3L;//visitando un bucle for, automaticamente hay una declaracion, una asignacion y un if con un operador.
+        funcionVisitada.addDeclaraciones(1L);
+        funcionVisitada.addOperadorSimple(2L);//Se añade un operador por el igual de asignacion y otro por el if
+        funcionVisitada.addLineaEfectiva(2L); //la declaración de for incluye 3 lineas efectivas, declaracion asignacion e if,
+                                              //una esta añadida por llamada a sentencia unica, aqui se añaden las 2 restantes
         if (ctx.codigo() != null){
-            puntosFor += (Long)visit(ctx.codigo());
+            puntosFor += (long)Math.pow((Long)visit(ctx.codigo()), 2);
         }
-        puntosFor = (long) Math.pow(puntosFor, 2);
+        //puntosFor = (long) Math.pow(puntosFor, 2);
         return puntosFor;
     }
     @Override
@@ -234,9 +265,6 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         funcionVisitada.addOperadorSimple(1);
         return 1L + (Long)visit(ctx.expr());
     }
-    @Override
-    public Long visitElse_key(ExprParser.Else_keyContext ctx) {
-        funcionVisitada.addLineaEfectiva(1);
-        return 0L;
-    }
+
+
 }

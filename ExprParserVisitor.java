@@ -139,12 +139,25 @@ public interface ExprParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTerminalString(ExprParser.TerminalStringContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code exprArray}
+	 * labeled alternative in {@link ExprParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprArray(ExprParser.ExprArrayContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code exprBooleana}
 	 * labeled alternative in {@link ExprParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExprBooleana(ExprParser.ExprBooleanaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ExprParser#expr_array}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpr_array(ExprParser.Expr_arrayContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ExprParser#codigo}.
 	 * @param ctx the parse tree

@@ -60,10 +60,11 @@ expr : expr (mult_tok|div_tok) expr #multDiv
     |   booleano #terminalBool
     |   string_tok #terminalString
     |   llamadafuncion #exprLlamadaFuncion
+    |   expr_array #exprArray
     //TODO expresiones array?
     ;
 
-
+expr_array: identificador_tok abrir_bracket_tok expr cerrar_bracket_tok finaldelinea_key;
 codigo:sentencia_unica*;
 sentencia_unica: (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|devolver|bucle_for);
 declaracion:tipo identificador_tok (igualdeasignacion_tok expr)?(coma_tok identificador_tok (igualdeasignacion_tok expr)?)*finaldelinea_key;
