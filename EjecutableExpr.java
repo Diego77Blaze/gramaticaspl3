@@ -8,6 +8,7 @@ public class EjecutableExpr{
 
     public static void main(String[] args) throws Exception{
         TablaDeSimbolos ts = new TablaDeSimbolos();
+        TablaDeSimbolosComplejidad tsc = new TablaDeSimbolosComplejidad();
         String inputFile = null;
         long resumenPuntosFuncion  = 0;
         long resumenLineasEfectivas = 0;
@@ -33,6 +34,8 @@ public class EjecutableExpr{
 
         VisitorPropio vp = new VisitorPropio(ts);
         vp.visit(tree);
+        VisitorComplejidad vc = new VisitorComplejidad(tsc);
+        vc.visit(tree);
 
 
 
