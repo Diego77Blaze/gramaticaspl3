@@ -12,6 +12,7 @@ public class Funcion{
     private long puntosTotales;
     private long lineasEfectivas = 6;
     private ArrayList<String> LlamadasFuncion;
+    private String nombreArchivo;
 
     public Funcion(){
         this.nombre = "";
@@ -22,6 +23,7 @@ public class Funcion{
         this.puntosTotales = 0;
         this.lineasEfectivas = 0;
         this.LlamadasFuncion = new ArrayList<String>();
+        this.nombreArchivo = "";
     }
 
     public ArrayList<String> getLlamadasFuncion(){
@@ -82,6 +84,28 @@ public class Funcion{
             System.out.println("\t" + funcion);
         }
     }
+    /*public void convertirArchivos(){
+
+        String[] command = {
+        "cmd",
+        };
+        Process p;
+        try{
+            p = Runtime.getRuntime().exec(command);
+
+            new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
+            new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
+            PrintWriter stdin = new PrintWriter(p.getOutputStream());
+            stdin.println("dot -Tsvg"+this.nombreArchivo+".dot -o "+this.nombreArchivo+".svg");
+
+
+            stdin.close();
+            p.waitFor();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }*/
 
     public String writeHtml(){
       Writer output;

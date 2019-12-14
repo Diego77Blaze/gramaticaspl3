@@ -1,0 +1,3 @@
+digraph functionmain()void {
+	1->2;
+	}
