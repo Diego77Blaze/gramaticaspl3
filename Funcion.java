@@ -70,6 +70,9 @@ public class Funcion{
     {
         return this.puntosTotales;
     }
+    public void setNombreArchivo(String archivo1){
+        this.nombreArchivo=archivo1;
+    }
 
     public void printAttributes(){
         System.out.println("nombre: " + this.nombre);

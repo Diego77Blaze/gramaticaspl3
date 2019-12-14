@@ -9,15 +9,18 @@ import java.io.*;
 public class VisitorComplejidad extends ExprParserBaseVisitor{
 
     private TablaDeSimbolosComplejidad ts;
+    private TablaDeSimbolos tsimbolos;
     
 
-    public VisitorComplejidad(TablaDeSimbolosComplejidad ts){
+    public VisitorComplejidad(TablaDeSimbolosComplejidad ts,TablaDeSimbolos tsimbolos){
         this.ts = ts;
+        this.tsimbolos=tsimbolos;
         
 
     }
     @Override
     public String visitAxioma(ExprParser.AxiomaContext ctx) {
+        int numerofunciones=0;
         if (ctx.cuerpofuncion() != null){
             ArrayList<ExprParser.CuerpofuncionContext> funciones = new ArrayList<ExprParser.CuerpofuncionContext>(ctx.cuerpofuncion());
 
@@ -25,9 +28,13 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                
                 try {
                     String nombreFuncion= (String)visit(funcion);
-                    String ruta = nombreFuncion+".dot";
+                    Funcion funcion1= tsimbolos.getHashMap().get(nombreFuncion);
+                    funcion1.setNombreArchivo("complejidad"+numerofunciones);
+                    String nombre = "complejidad"+numerofunciones;
+                    
+                    String ruta = nombre+".dot";
                    
-                    String contenido = "digraph "+nombreFuncion + " {\n\t";
+                    String contenido = "digraph "+nombre + " {\n\t";
                     String cierreLlave="}";
                     Set<Integer> nodos=ts.getTablaSimbolosComplejidad().keySet();
                     File file = new File(ruta);
@@ -49,10 +56,12 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                     output.append(cierreLlave);
                     
                     output.close();
+                    numerofunciones++;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 ts.emptyTabla();
+                
             }
         }
         return "";
@@ -65,7 +74,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         ArrayList<ExprParser.Identificador_tokContext> listaId = new ArrayList<ExprParser.Identificador_tokContext>(ctx.identificador_tok());
         long puntosParam = (long)(listaId.size()-1) * 2;
 
-        String nombreFuncion = ctx.funcion_key().FUNCION().getText();
+        String nombreFuncion = ctx.funcion_key().FUNCION().getText() + " ";
         nombreFuncion += listaId.get(0).IDENTIFICADOR().getText();
         nombreFuncion += "(";
         for(int i = 1; i < listaId.size(); i++){
@@ -77,7 +86,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                 nombreFuncion += ",";
             }
         }
-        nombreFuncion += ")";
+        nombreFuncion += "):";
         ArrayList<ExprParser.TipoContext> tipos = new ArrayList<>(ctx.tipo());
         nombreFuncion += tipos.get(tipos.size() - 1).getText();
 

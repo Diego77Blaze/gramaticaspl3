@@ -40,7 +40,7 @@ public class EjecutableExpr{
 
             VisitorPropio vp = new VisitorPropio(ts);
             vp.visit(tree);
-            VisitorComplejidad vc= new VisitorComplejidad(tsc);
+            VisitorComplejidad vc= new VisitorComplejidad(tsc,ts);
             vc.visit(tree);
 
 
