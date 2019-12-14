@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.tree.*;
 
 public class EjecutableExpr{
         private static TablaDeSimbolos ts = new TablaDeSimbolos();
+        private static TablaDeSimbolosComplejidad tsc = new TablaDeSimbolosComplejidad();
 
         public static void main(String[] args) throws Exception{
             String funcionArg = "";
@@ -39,6 +40,8 @@ public class EjecutableExpr{
 
             VisitorPropio vp = new VisitorPropio(ts);
             vp.visit(tree);
+            VisitorComplejidad vc= new VisitorComplejidad(tsc);
+            vc.visit(tree);
 
 
 
