@@ -41,6 +41,7 @@ public class TablaDeSimbolos{
         String textoHtml = "";
         for (Funcion funcion : ts.values()){
             if (!funcion.getNombre().equals("")){
+                funcion.convertirArchivos();
                 textoHtml += funcion.writeHtml();
             }
         }

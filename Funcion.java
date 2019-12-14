@@ -87,7 +87,7 @@ public class Funcion{
             System.out.println("\t" + funcion);
         }
     }
-    /*public void convertirArchivos(){
+    public void convertirArchivos(){
 
         String[] command = {
         "cmd",
@@ -99,7 +99,7 @@ public class Funcion{
             new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
             new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
             PrintWriter stdin = new PrintWriter(p.getOutputStream());
-            stdin.println("dot -Tsvg"+this.nombreArchivo+".dot -o "+this.nombreArchivo+".svg");
+            stdin.println("dot -Tsvg "+this.nombreArchivo+".dot -o "+this.nombreArchivo+".svg");
 
 
             stdin.close();
@@ -108,7 +108,7 @@ public class Funcion{
         }catch(Exception e){
             e.printStackTrace();
         }
-    }*/
+    }
 
     public String writeHtml(){
       Writer output;
@@ -128,6 +128,7 @@ public class Funcion{
                           +"</ul>\n"
                           +"</li>\n"
                           +"<li>Grafo de complejidad ciclomatica:</li>\n"
+                          +"<p><img src="+this.nombreArchivo+".svg"+" width=100%/></p>"
                           +"</ul>\n"
                           +"<hr />\n";
                       //<p><img src="fichero.svg" width="100%"/> </p>
