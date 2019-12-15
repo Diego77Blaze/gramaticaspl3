@@ -75,6 +75,9 @@ public class Funcion{
     public void setNombreArchivo(String archivo1){
         this.nombreArchivo=archivo1;
     }
+    public void setComplejidad(int aristas,int nodos){
+        this.complejidad=aristas-nodos+2;
+    }
 
     public void printAttributes(){
         System.out.println("nombre: " + this.nombre);

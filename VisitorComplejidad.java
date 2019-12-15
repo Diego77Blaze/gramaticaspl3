@@ -20,7 +20,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
     }
     @Override
     public String visitAxioma(ExprParser.AxiomaContext ctx) {
-        int numerofunciones=0;
+        int numerofunciones=0,numeroAristas=0,numeroNodos=0;
         if (ctx.cuerpofuncion() != null){
             ArrayList<ExprParser.CuerpofuncionContext> funciones = new ArrayList<ExprParser.CuerpofuncionContext>(ctx.cuerpofuncion());
 
@@ -37,6 +37,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                     String contenido = "digraph "+nombre + " {\n\t";
                     String cierreLlave="}";
                     Set<Integer> nodos=ts.getTablaSimbolosComplejidad().keySet();
+                    numeroNodos=nodos.size();
                     File file = new File(ruta);
                     
                     if (!file.exists()) {
@@ -52,6 +53,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                         for(int i=0;i<aristas.size();i++){
                             output.append((nodo-1) +"->"+ (aristas.get(i)-1)+";\n\t");
                         }
+                        numeroAristas+=aristas.size();
                     }
                     output.append(cierreLlave);
                     
@@ -60,6 +62,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                funcion1.setComplejidad(numeroAristas,numeroNodos);
                 ts.emptyTabla();
                 
             }
