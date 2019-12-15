@@ -13,6 +13,7 @@ public class Funcion{
     private long lineasEfectivas = 6;
     private ArrayList<String> LlamadasFuncion;
     private String nombreArchivo;
+    private long complejidad;
 
     public Funcion(){
         this.nombre = "";
@@ -24,6 +25,7 @@ public class Funcion{
         this.lineasEfectivas = 0;
         this.LlamadasFuncion = new ArrayList<String>();
         this.nombreArchivo = "";
+        this.complejidad = 0;
     }
 
     public ArrayList<String> getLlamadasFuncion(){
@@ -83,6 +85,7 @@ public class Funcion{
         System.out.println("Puntos Funcion: " + this.puntosTotales);
         System.out.println("Lineas efectivas: " + this.lineasEfectivas);
         System.out.println("Lista de funciones llamadas: \n");
+        System.out.println("Complejidad de la funcion: " + this.complejidad);
         for (String funcion : LlamadasFuncion){
             System.out.println("\t" + funcion);
         }
@@ -127,6 +130,7 @@ public class Funcion{
                           +"<li>Numero de llamadas a funciones:<strong> " + this.llamadasFuncion + "</strong></li>\n"
                           +"</ul>\n"
                           +"</li>\n"
+                          +"<li>Complejidad ciclomatica de la función:<strong> "+this.complejidad +"</strong></li>\n"
                           +"<li>Grafo de complejidad ciclomatica:</li>\n"
                           +"<p><img src="+this.nombreArchivo+".svg></p>"
                           +"</ul>\n"
