@@ -96,7 +96,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         ArrayList<ExprParser.Identificador_tokContext> variables = new ArrayList<>(ctx.identificador_tok());
 
         puntosDeclaracion += variables.size();
-
+        funcionVisitada.addLineaEfectiva(variables.size());
         if (ctx.igualdeasignacion_tok() != null)
         {
             ArrayList<ExprParser.Igualdeasignacion_tokContext> asignaciones = new ArrayList<>(ctx.igualdeasignacion_tok());
