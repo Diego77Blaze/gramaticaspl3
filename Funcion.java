@@ -12,6 +12,8 @@ public class Funcion{
     private long puntosTotales;
     private long lineasEfectivas = 6;
     private ArrayList<String> LlamadasFuncion;
+    private String nombreArchivo;
+    private long complejidad;
 
     public Funcion(){
         this.nombre = "";
@@ -22,6 +24,8 @@ public class Funcion{
         this.puntosTotales = 0;
         this.lineasEfectivas = 0;
         this.LlamadasFuncion = new ArrayList<String>();
+        this.nombreArchivo = "";
+        this.complejidad = 0;
     }
 
     public ArrayList<String> getLlamadasFuncion(){
@@ -68,6 +72,9 @@ public class Funcion{
     {
         return this.puntosTotales;
     }
+    public void setNombreArchivo(String archivo1){
+        this.nombreArchivo=archivo1;
+    }
 
     public void printAttributes(){
         System.out.println("nombre: " + this.nombre);
@@ -78,8 +85,31 @@ public class Funcion{
         System.out.println("Puntos Funcion: " + this.puntosTotales);
         System.out.println("Lineas efectivas: " + this.lineasEfectivas);
         System.out.println("Lista de funciones llamadas: \n");
+        System.out.println("Complejidad de la funcion: " + this.complejidad);
         for (String funcion : LlamadasFuncion){
             System.out.println("\t" + funcion);
+        }
+    }
+    public void convertirArchivos(){
+
+        String[] command = {
+        "cmd",
+        };
+        Process p;
+        try{
+            p = Runtime.getRuntime().exec(command);
+
+            new Thread(new SyncPipe(p.getErrorStream(), System.err)).start();
+            new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
+            PrintWriter stdin = new PrintWriter(p.getOutputStream());
+            stdin.println("dot -Tsvg "+this.nombreArchivo+".dot -o "+this.nombreArchivo+".svg");
+
+
+            stdin.close();
+            p.waitFor();
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -100,7 +130,9 @@ public class Funcion{
                           +"<li>Numero de llamadas a funciones:<strong> " + this.llamadasFuncion + "</strong></li>\n"
                           +"</ul>\n"
                           +"</li>\n"
+                          +"<li>Complejidad ciclomatica de la función:<strong> "+this.complejidad +"</strong></li>\n"
                           +"<li>Grafo de complejidad ciclomatica:</li>\n"
+                          +"<p><img src="+this.nombreArchivo+".svg></p>"
                           +"</ul>\n"
                           +"<hr />\n";
                       //<p><img src="fichero.svg" width="100%"/> </p>

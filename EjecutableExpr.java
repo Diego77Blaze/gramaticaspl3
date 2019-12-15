@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.tree.*;
 
 public class EjecutableExpr{
         private static TablaDeSimbolos ts = new TablaDeSimbolos();
+        private static TablaDeSimbolosComplejidad tsc = new TablaDeSimbolosComplejidad();
 
         public static void main(String[] args) throws Exception{
             String funcionArg = "";
@@ -39,6 +40,8 @@ public class EjecutableExpr{
 
             VisitorPropio vp = new VisitorPropio(ts);
             vp.visit(tree);
+            VisitorComplejidad vc= new VisitorComplejidad(tsc,ts);
+            vc.visit(tree);
 
 
 
@@ -62,7 +65,6 @@ public class EjecutableExpr{
                                   +"<li>Resumen Lineas Efectivas:<strong> " + ts.getResumenLineasEfectivas()+ "</strong></li>\n"
                                   +"<li>Resumen Grafo de Llamadas a Funcion: <strong>" + funcionArg + "</strong></li>\n"
                                   +"<p><img src="+"DiagramaLlamadas.svg"+" width="+"100%"+"/></p>";
-                                  //+"<li>Resumen Puntos Funcion:<strong>" + HAY QUE COGELLA()+ "</strong></li>\n"
             String htmlLine = "<body> <html> \n";
             try{
               output = new BufferedWriter(new FileWriter(nombreHtml, false));
