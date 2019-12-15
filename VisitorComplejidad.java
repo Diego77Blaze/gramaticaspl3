@@ -50,16 +50,28 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                     System.out.println(nodos);
                     for(Integer nodo : nodos ){
                         ArrayList<Integer> aristas = (ArrayList)ts.getTablaSimbolosComplejidad().get(nodo);
-                        for(int i=0;i<aristas.size();i++){
-                            output.append((nodo-1) +"->"+ (aristas.get(i)-1)+";\n\t");
-                        }
-                        numeroAristas+=aristas.size();
+                        
+                            for(int i=0;i<aristas.size();i++){
+                                if(i==0 && nodo-1==1){
+                                    output.append("I->1;\n\t");
+                                }
+                                output.append((nodo-1) +"->"+ (aristas.get(i)-1)+";\n\t");
+                            }
+                            numeroAristas+=aristas.size();
+                            System.out.println(aristas);
+                        
+                    
+                        
                     }
                     output.append(cierreLlave);
                     
                     output.close();
                     numerofunciones++;
+                    
+                    System.out.println(numeroNodos);
                     funcion1.setComplejidad(numeroAristas,numeroNodos);
+                    numeroAristas=0;
+                numeroNodos=0;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -137,10 +149,10 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         
         }
         Integer nodo2=ts.addNewNode();
-        ts.addValor(nodo2-1,nodo2);
-        ts.addValor(nodo2,nodo);
+        ts.addValor(nodo2-1,nodo2);       
         Integer nodo3=ts.addNewNode();
         ts.addValor(nodo,nodo3);
+        ts.addValor(nodo2,nodo);
         return 0;
 
     }
@@ -155,9 +167,10 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         }  
         Integer nodo3=ts.addNewNode();
         ts.addValor(nodo3-1,nodo3);
-        ts.addValor(nodo3,nodo2);
+        
         Integer nodo4= ts.addNewNode();
         ts.addValor(nodo2,nodo4);
+        ts.addValor(nodo3,nodo2);
         return 0;
         
     }   
@@ -173,7 +186,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
             Integer nodo3=ts.addNewNode();
             ts.addValor(nodo,nodo3);
             visit(ctx.codigo(1));
-            System.out.println("me meto en el else");             
+            //System.out.println("me meto en el else");             
             Integer nodo4=ts.addNewNode();
             ts.addValor(nodo4-1,nodo4);
             ts.addValor(nodo2,nodo4);

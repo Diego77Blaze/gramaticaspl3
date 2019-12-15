@@ -18,8 +18,12 @@ public class TablaDeSimbolosComplejidad{
         ArrayList<Integer> valores=new ArrayList<>();
         if(tablaSimbolos.isEmpty()){
             tablaSimbolos.put(1,valores);
+            System.out.println("nodo 1 creado");
+            return tablaSimbolos.size();
         }else{
-        tablaSimbolos.put(tablaSimbolos.size()+1,valores);}
+            int valor=tablaSimbolos.size()+1;
+        tablaSimbolos.put(valor,valores);
+        System.out.println("nodo "+(tablaSimbolos.size()+1)+" creado");}
         return tablaSimbolos.size()+1;
 
 
@@ -33,11 +37,12 @@ public class TablaDeSimbolosComplejidad{
             tablaSimbolos.remove(key);
             valores.add(valor);
             tablaSimbolos.put(key,valores);
-            System.out.println("actualizada entrada");
-        }else {            
+            //System.out.println("actualizada entrada");
+        }/*else {            
             valores.add(valor);
             this.tablaSimbolos.put(key,valores);
-            System.out.println("nueva entrada");}
+            //System.out.println("nueva entrada");
+        }*/
     }
     public HashMap getTablaSimbolosComplejidad(){
 
