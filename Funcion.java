@@ -128,7 +128,7 @@ public class Funcion{
                           +"</ul>\n"
                           +"</li>\n"
                           +"<li>Grafo de complejidad ciclomatica:</li>\n"
-                          +"<p><img src="+this.nombreArchivo+".svg"+" width=100%/></p>"
+                          +"<p><img src="+this.nombreArchivo+".svg></p>"
                           +"</ul>\n"
                           +"<hr />\n";
                       //<p><img src="fichero.svg" width="100%"/> </p>

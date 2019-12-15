@@ -65,7 +65,6 @@ public class EjecutableExpr{
                                   +"<li>Resumen Lineas Efectivas:<strong> " + ts.getResumenLineasEfectivas()+ "</strong></li>\n"
                                   +"<li>Resumen Grafo de Llamadas a Funcion: <strong>" + funcionArg + "</strong></li>\n"
                                   +"<p><img src="+"DiagramaLlamadas.svg"+" width="+"100%"+"/></p>";
-                                  //+"<li>Resumen Puntos Funcion:<strong>" + HAY QUE COGELLA()+ "</strong></li>\n"
             String htmlLine = "<body> <html> \n";
             try{
               output = new BufferedWriter(new FileWriter(nombreHtml, false));
