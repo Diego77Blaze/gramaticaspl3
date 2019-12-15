@@ -59,10 +59,11 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                     
                     output.close();
                     numerofunciones++;
+                    funcion1.setComplejidad(numeroAristas,numeroNodos);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                funcion1.setComplejidad(numeroAristas,numeroNodos);
+                
                 ts.emptyTabla();
                 
             }
