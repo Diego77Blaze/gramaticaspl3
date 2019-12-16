@@ -160,6 +160,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     public Long visitLlamadafuncion(ExprParser.LlamadafuncionContext ctx) {
         long puntosLlamadaF = 2L; //hemos llegado a una llamada a funcion a si que como minimo su puntuacion sera 2
         String nombreFuncionLlamada = ctx.identificador_tok().IDENTIFICADOR().getText();
+        
         funcionVisitada.addFuncionLlamada(nombreFuncionLlamada);
         if(ctx.expr() != null){
             ArrayList<ExprParser.ExprContext> parametrosLlamadaF = new ArrayList<ExprParser.ExprContext>(ctx.expr());

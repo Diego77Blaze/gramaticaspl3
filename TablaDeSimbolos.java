@@ -3,8 +3,8 @@ import java.util.*;
 public class TablaDeSimbolos{
 
 
-//TODO VER QUE PUEDO HACER CON POLIMORFISMO
-    private HashMap<String, Funcion> ts;//TODO CAMBIOS EN LA CLAVE POR UN OBJETO QUE CONTENGA NOMBRE Y PARAMETROS
+//TODO ACCESO A FUNCION MAS CONSISTENTE
+    private HashMap<String, Funcion> ts;
     //private HashMap<String, ArrayList<String>> grafoLlamadasFuncion;
     private long resumenPuntosFuncion;
     private long resumenLineasEfectivas;
@@ -27,7 +27,7 @@ public class TablaDeSimbolos{
         return this.resumenLineasEfectivas;
     }
     public void addFuncion(Funcion funcion){
-        ts.put(funcion.getNombre(), funcion); //TODO aqui habria que añadir el objeto nuevo para la clave en lugar del nombre
+        ts.put(funcion.getNombre(), funcion);
     }
 
     public void printHashMap(){
@@ -57,14 +57,25 @@ public class TablaDeSimbolos{
     }
 
     public String conversionNombre(String nombreSimple){                            //RETOCAR LAS FUNCIONES QUE MANIPULAN EL NOMBRE DE FUNCIONES
-        String nombreConvertido = null;                                             //PARA CONSEGUIR COMPARAR SI SON EXACTAMENTE IGUALES O NO            
+        String nombreConvertido = null;                                             //PARA CONSEGUIR COMPARAR SI SON EXACTAMENTE IGUALES O NO
         for (String nombreComplejo : this.ts.keySet()){
-            if (nombreComplejo.contains(nombreSimple)){
-                nombreConvertido = nombreComplejo;
-                break;
+            if(nombreComplejo.contains("(")){
+                if (trocearNombreFuncionCompleto(nombreComplejo).equals(nombreSimple)){
+                    nombreConvertido = nombreComplejo;
+                    break;
+                }
             }
         }
         return nombreConvertido;
+    }
+    public String trocearNombreFuncionCompleto(String nombreCompleto){
+        String identificadorFuncion = "";
+        int beginIndex = 9; //todos los nombres de funciones declaradas empiezan por function + espacio
+        int endIndex = nombreCompleto.indexOf("("); //el identificador acabara cuando encontremos un abrir parentesis
+        identificadorFuncion = nombreCompleto.substring(beginIndex, endIndex);
+
+        return identificadorFuncion;
+
     }
     public String nombreValido(String cadena){
 
