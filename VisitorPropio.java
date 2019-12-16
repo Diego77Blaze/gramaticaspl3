@@ -80,7 +80,15 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     @Override
     public Long visitSentencia_unica(ExprParser.Sentencia_unicaContext ctx) {
         long puntosSentencia = 0L;
-        puntosSentencia += (Long)visitChildren(ctx);
+        if (ctx.begin_key() != null){
+            if (ctx.getChildCount() == 3){
+
+                puntosSentencia += (Long)visit(ctx.getChild(1));
+            }
+        }
+        else{
+            puntosSentencia += (Long)visitChildren(ctx);
+        }
         funcionVisitada.addLineaEfectiva(1);
         return puntosSentencia;
     }
@@ -160,7 +168,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     public Long visitLlamadafuncion(ExprParser.LlamadafuncionContext ctx) {
         long puntosLlamadaF = 2L; //hemos llegado a una llamada a funcion a si que como minimo su puntuacion sera 2
         String nombreFuncionLlamada = ctx.identificador_tok().IDENTIFICADOR().getText();
-        
+
         funcionVisitada.addFuncionLlamada(nombreFuncionLlamada);
         if(ctx.expr() != null){
             ArrayList<ExprParser.ExprContext> parametrosLlamadaF = new ArrayList<ExprParser.ExprContext>(ctx.expr());

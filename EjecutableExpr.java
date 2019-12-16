@@ -104,7 +104,12 @@ public class EjecutableExpr{
         String archivoDot = "";
         String cabecera = "digraph " + nombreFuncion + "{\n\n";
         String cierreLlave = "}";
-        archivoDot += cabecera + cuerpoCodigo + cierreLlave;
+        if (!(cuerpoCodigo.contains("(") || cuerpoCodigo.contains(":"))){
+            archivoDot += cabecera + cuerpoCodigo + cierreLlave;
+
+        }else {
+            archivoDot += cabecera + cierreLlave;
+        }
         Writer output;
         try{
           output = new BufferedWriter(new FileWriter("DiagramaLlamadas.dot", false));

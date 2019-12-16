@@ -18,9 +18,9 @@ include: include_key identificador_tok finaldelinea_key;
 cabecerafuncion:funcion_key identificador_tok abrir_parentesis_tok (tipo (identificador_tok(coma_tok (tipo (identificador_tok)))*))? cerrar_parentesis_tok dospuntos_tok tipo;
 
 cuerpofuncion: cabecerafuncion
-    begin_key*
+    begin_key
     (codigo|cuerpofuncion*)
-    end_key*
+    end_key
     ;
 
 devolver: devolver_key abrir_parentesis_tok expr cerrar_parentesis_tok finaldelinea_key;
@@ -66,7 +66,7 @@ expr : expr (mult_tok|div_tok) expr #multDiv
 
 expr_array: identificador_tok abrir_bracket_tok expr cerrar_bracket_tok finaldelinea_key;
 codigo:sentencia_unica*;
-sentencia_unica: (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|devolver|bucle_for|declaracion_array|asignacion_array);
+sentencia_unica: (begin_key (asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|devolver|bucle_for|declaracion_array|asignacion_array)? end_key)|(asignacion|cuerpobuclewhile|llamadafuncion|declaracion|cuerpoif|devolver|bucle_for|declaracion_array|asignacion_array);
 declaracion:tipo identificador_tok (igualdeasignacion_tok expr)?(coma_tok identificador_tok (igualdeasignacion_tok expr)?)*finaldelinea_key;
 declaracion_array: tipo identificador_tok abrir_bracket_tok expr cerrar_bracket_tok
                    ((igualdeasignacion_tok abrir_parentesis_tok expr (coma_tok expr)* cerrar_parentesis_tok finaldelinea_key)|finaldelinea_key);
