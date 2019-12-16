@@ -5,13 +5,13 @@ public class Funcion{
 
 
     private String nombre;
-    private long nParametros;
+    private int nParametros;
     private long nDeclaraciones;
     private long llamadasFuncion;
     private long nOperadoresSimples;
     private long puntosTotales;
     private long lineasEfectivas = 6;
-    private ArrayList<String> LlamadasFuncion;
+    private ArrayList<LlamadaFuncion> LlamadasFuncion;
     private String nombreArchivo;
     private long complejidad;
 
@@ -23,12 +23,12 @@ public class Funcion{
         this.nOperadoresSimples = 0;
         this.puntosTotales = 0;
         this.lineasEfectivas = 0;
-        this.LlamadasFuncion = new ArrayList<String>();
+        this.LlamadasFuncion = new ArrayList<LlamadaFuncion>();
         this.nombreArchivo = "";
         this.complejidad = 0;
     }
 
-    public ArrayList<String> getLlamadasFuncion(){
+    public ArrayList<LlamadaFuncion> getLlamadasFuncion(){
         return this.LlamadasFuncion;
     }
     public void addParametro(long puntos)
@@ -78,7 +78,9 @@ public class Funcion{
     public void setComplejidad(int aristas,int nodos){
         this.complejidad=aristas-nodos+2;
     }
-
+    public int getNumParametros(){
+        return this.nParametros;
+    }
     public void printAttributes(){
         System.out.println("nombre: " + this.nombre);
         System.out.println("numero de parametros: " + this.nParametros);
@@ -89,8 +91,8 @@ public class Funcion{
         System.out.println("Lineas efectivas: " + this.lineasEfectivas);
         System.out.println("Lista de funciones llamadas: \n");
         System.out.println("Complejidad de la funcion: " + this.complejidad);
-        for (String funcion : LlamadasFuncion){
-            System.out.println("\t" + funcion);
+        for (LlamadaFuncion funcion : LlamadasFuncion){
+            System.out.println("\t" + funcion.getNombre());
         }
     }
     public void convertirArchivos(){
@@ -142,10 +144,18 @@ public class Funcion{
       }
       return htmlLine;
     }
-    public void addFuncionLlamada(String nombreFuncion){
-        if (!this.LlamadasFuncion.contains(nombreFuncion)){
-            this.LlamadasFuncion.add(nombreFuncion);
+    public void addFuncionLlamada(LlamadaFuncion llamadaNueva){
+        boolean contiene = false;
+        for(LlamadaFuncion llamadaArray : LlamadasFuncion){
+            if (llamadaArray.getNombre().equals(llamadaNueva.getNombre()) && llamadaArray.getNumeroP() == llamadaNueva.getNumeroP()){
+                contiene = true;
+                break;
+            }
         }
+        if (!contiene){
+            this.LlamadasFuncion.add(llamadaNueva);
+        }
+        //this.LlamadasFuncion.add(llamadaNueva);
     }
 
 }

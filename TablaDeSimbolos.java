@@ -29,6 +29,9 @@ public class TablaDeSimbolos{
     public void addFuncion(Funcion funcion){
         ts.put(funcion.getNombre(), funcion);
     }
+    public Funcion get(String clave){
+        return ts.get(clave);
+    }
 
     public void printHashMap(){
         for (Funcion funcion : ts.values()){
@@ -56,11 +59,15 @@ public class TablaDeSimbolos{
         }
     }
 
-    public String conversionNombre(String nombreSimple){                            //RETOCAR LAS FUNCIONES QUE MANIPULAN EL NOMBRE DE FUNCIONES
-        String nombreConvertido = null;                                             //PARA CONSEGUIR COMPARAR SI SON EXACTAMENTE IGUALES O NO
+    public String conversionNombre(LlamadaFuncion lf){                            //RETOCAR LAS FUNCIONES QUE MANIPULAN EL NOMBRE DE FUNCIONES
+        String nombreConvertido = null;
+        String nombreSimple = lf.getNombre();                                        //PARA CONSEGUIR COMPARAR SI SON EXACTAMENTE IGUALES O NO
+        int numParametrosFcompleja = 0;
+        int numParametrosFllamada = lf.getNumeroP();
         for (String nombreComplejo : this.ts.keySet()){
+            numParametrosFcompleja = ts.get(nombreComplejo).getNumParametros();
             if(nombreComplejo.contains("(")){
-                if (trocearNombreFuncionCompleto(nombreComplejo).equals(nombreSimple)){
+                if (trocearNombreFuncionCompleto(nombreComplejo).equals(nombreSimple) && numParametrosFllamada == numParametrosFcompleja){
                     nombreConvertido = nombreComplejo;
                     break;
                 }
@@ -70,12 +77,26 @@ public class TablaDeSimbolos{
     }
     public String trocearNombreFuncionCompleto(String nombreCompleto){
         String identificadorFuncion = "";
-        int beginIndex = 9; //todos los nombres de funciones declaradas empiezan por function + espacio
-        int endIndex = nombreCompleto.indexOf("("); //el identificador acabara cuando encontremos un abrir parentesis
-        identificadorFuncion = nombreCompleto.substring(beginIndex, endIndex);
+        if(nombreCompleto.contains("(")){
+            int beginIndex = 9; //todos los nombres de funciones declaradas empiezan por function + espacio
+            int endIndex = nombreCompleto.indexOf("("); //el identificador acabara cuando encontremos un abrir parentesis
+            identificadorFuncion = nombreCompleto.substring(beginIndex, endIndex);
+        }else{
+            identificadorFuncion = nombreCompleto;
+        }
 
         return identificadorFuncion;
 
+    }
+    public String conversionNombreFuncionArgumento(String nombreFuncionSimple){
+        String nombreSimpleClave = "";
+        for (String key : ts.keySet()){
+            nombreSimpleClave = trocearNombreFuncionCompleto(key);
+            if (nombreFuncionSimple.equals(nombreSimpleClave)){
+                return key;
+            }
+        }
+        return nombreSimpleClave;
     }
     public String nombreValido(String cadena){
 
@@ -97,27 +118,28 @@ public class TablaDeSimbolos{
         return cadena;
     }
 
-    public String generarGrafoLlamadasFuncion(String nombreFuncion, boolean nombreSimple){
+    public String generarGrafoLlamadasFuncion(LlamadaFuncion lf, boolean nombreSimple){
         HashMap<String, Funcion> copiaTDS = this.ts;
+        String nombreFuncion = lf.getNombre();
 
         if (nombreSimple){                                                              //si es un nombre simple i.e main y la TDS contiene la
-            if(copiaTDS.containsKey(conversionNombre(nombreFuncion))) {
-                nombreFuncion = conversionNombre(nombreFuncion);                        //clave function main():void convierte el nombre simple
+            if(copiaTDS.containsKey(conversionNombre(lf))) {
+                nombreFuncion = conversionNombre(lf);                        //clave function main():void convierte el nombre simple
             }
             else{                                                                       //se convierte a nombrecomplejo para poder acceder a la clave
                 copiaTDS.put(nombreFuncion, new Funcion());
             }                                                                           //si no, es una funcion del lenguaje y la añade vacia al HM
         }
 
-        ArrayList<String>funcionesLlamadas = copiaTDS.get(nombreFuncion).getLlamadasFuncion();
+        ArrayList<LlamadaFuncion>funcionesLlamadas = copiaTDS.get(nombreFuncion).getLlamadasFuncion();
         String capaGrafo = "";
 
 
         if (funcionesLlamadas.isEmpty() || funcionesLlamadas == null){
-            return nombreFuncion;
+            return nombreValido(nombreFuncion);
         }
         else {
-            for (String funcionLlamada : funcionesLlamadas){
+            for (LlamadaFuncion funcionLlamada : funcionesLlamadas){
                 capaGrafo += nombreValido(nombreFuncion) + "->" + generarGrafoLlamadasFuncion(funcionLlamada, true) + "\n";
             }
             return capaGrafo;

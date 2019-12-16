@@ -166,19 +166,24 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     }
     @Override
     public Long visitLlamadafuncion(ExprParser.LlamadafuncionContext ctx) {
+        LlamadaFuncion lf = new LlamadaFuncion();
         long puntosLlamadaF = 2L; //hemos llegado a una llamada a funcion a si que como minimo su puntuacion sera 2
         String nombreFuncionLlamada = ctx.identificador_tok().IDENTIFICADOR().getText();
-
-        funcionVisitada.addFuncionLlamada(nombreFuncionLlamada);
+        int numParametros = 0;
+        lf.setNumeroP(numParametros);
+        lf.setNombre(nombreFuncionLlamada);
         if(ctx.expr() != null){
             ArrayList<ExprParser.ExprContext> parametrosLlamadaF = new ArrayList<ExprParser.ExprContext>(ctx.expr());
             puntosLlamadaF += parametrosLlamadaF.size(); //al valor minimo de 2 se le sumara 1 por cada parametro que use la funcion
+            numParametros = parametrosLlamadaF.size();
+            lf.setNumeroP(numParametros);
             for(ExprParser.ExprContext parametro : parametrosLlamadaF){
                 puntosLlamadaF += (Long)visit(parametro); //como un argumento puede ser una expr y estas pueden ser elementos puntos funcion tenemos que visitar cada una
             }
-
             funcionVisitada.addLlamadasFuncion(1);
         }
+        funcionVisitada.addFuncionLlamada(lf);
+
         return puntosLlamadaF;
     }
     @Override
