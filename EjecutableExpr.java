@@ -55,7 +55,10 @@ public class EjecutableExpr{
 
 
             //System.out.println( // EL ARGUMENTO DE generarDot con ese argumento DEVUELVE EL STRING CON EL CODIGO
-            generarDot(ts.generarGrafoLlamadasFuncion(funcionArg, true), funcionArg);
+            LlamadaFuncion funcionArgumento = new LlamadaFuncion();
+            funcionArgumento.setNombre(funcionArg);
+            funcionArgumento.setNumeroP(ts.get(ts.conversionNombreFuncionArgumento(funcionArg)).getNumParametros());
+            generarDot(ts.generarGrafoLlamadasFuncion(funcionArgumento, true), funcionArg);
 
 
             //PRINT EN HTML
@@ -104,7 +107,12 @@ public class EjecutableExpr{
         String archivoDot = "";
         String cabecera = "digraph " + nombreFuncion + "{\n\n";
         String cierreLlave = "}";
-        archivoDot += cabecera + cuerpoCodigo + cierreLlave;
+        //if (!(cuerpoCodigo.contains("(") || cuerpoCodigo.contains(":"))){
+            archivoDot += cabecera + cuerpoCodigo + cierreLlave;
+
+        /*}else {
+            archivoDot += cabecera + cierreLlave;
+        }*/
         Writer output;
         try{
           output = new BufferedWriter(new FileWriter("DiagramaLlamadas.dot", false));
