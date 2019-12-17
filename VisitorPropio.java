@@ -84,12 +84,13 @@ public class VisitorPropio extends ExprParserBaseVisitor{
             if (ctx.getChildCount() == 3){
 
                 puntosSentencia += (Long)visit(ctx.getChild(1));
+                funcionVisitada.addLineaEfectiva(1);
             }
         }
         else{
             puntosSentencia += (Long)visitChildren(ctx);
+            funcionVisitada.addLineaEfectiva(1);
         }
-        funcionVisitada.addLineaEfectiva(1);
         return puntosSentencia;
     }
     @Override

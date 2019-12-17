@@ -1,4 +1,6 @@
 digraph complejidad1 {
 	I->1;
 	1->2;
+	2->3;
+	3->4;
 	}
