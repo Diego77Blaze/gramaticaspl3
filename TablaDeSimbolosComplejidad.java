@@ -4,6 +4,7 @@ public class TablaDeSimbolosComplejidad{
 
     private HashMap<Integer, ArrayList<Integer>> tablaSimbolos;
     private TablaDeSimbolos ts;
+    private int complejidadGlobal=0;
 
     public TablaDeSimbolosComplejidad(){
 
@@ -36,4 +37,12 @@ public class TablaDeSimbolosComplejidad{
         return this.tablaSimbolos;
     }
 
+
+    public void setComplejidadGlobal(int complejidad){
+        this.complejidadGlobal=complejidad;
+    }
+    
+    public int getComplejidadGlobal(){
+        return complejidadGlobal;
+    }
 }

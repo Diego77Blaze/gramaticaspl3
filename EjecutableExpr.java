@@ -58,7 +58,8 @@ public class EjecutableExpr{
                                   +"<li>Resumen Lineas Efectivas:<strong> " + ts.getResumenLineasEfectivas()+ "</strong></li>\n"
                                   +"<li>Resumen Grafo de Llamadas a Funcion: <strong>" + funcionArg + "</strong></li>\n"
                                   +"<p><img src="+"DiagramaLlamadas.svg"+" width="+"100%"+"/></p>"
-                                  +"<hr><li>Grafo completo del programa: </li>\n"
+                                  +"<hr><li>Complejidad cicolmatica del grafo completo del programa: <strong>" + tsc.getComplejidadGlobal() + "</strong> </li>\n"
+                                  +"<li>Grafo completo del programa: </li>\n"
                                   +"<p><img src="+"grafoCompleto.svg"+"></p>";
             String htmlLine = "<body> <html> \n";
             try{

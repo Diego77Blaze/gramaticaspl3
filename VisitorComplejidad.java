@@ -134,6 +134,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                             }
                             output2.append(cierreLlave);
                             output2.close();
+                            ts.setComplejidadGlobal(numeroAristas-numeroNodos+2);
                         }
 
                         catch(Exception e){}
