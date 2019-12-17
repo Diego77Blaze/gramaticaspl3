@@ -139,6 +139,7 @@ public class VisitorPropio extends ExprParserBaseVisitor{
             for (int i = 1; i < ctx.expr().size(); i++){
                 puntosDeclaracionArray += (Long) visit(ctx.expr(i));
             }
+            funcionVisitada.addLineaEfectiva(1);;
         }
         funcionVisitada.addDeclaraciones(1);
         return puntosDeclaracionArray;
