@@ -1,6 +1,5 @@
-digraph complejidad0 {
+digraph grafoCompleto {
 	1->2;
-	I->1;
 	2->3;
 	3->4;
 	3->6;
@@ -70,5 +69,5 @@ digraph complejidad0 {
 	60->61;
 	61->62;
 	62->63;
-	63->F;
+	64->65;
 	}

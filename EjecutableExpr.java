@@ -67,7 +67,9 @@ public class EjecutableExpr{
             String htmlResumen =  "<li>Resumen Puntos Funcion:<strong> " + ts.getResumenPuntosFuncion()+ "</strong></li>\n"
                                   +"<li>Resumen Lineas Efectivas:<strong> " + ts.getResumenLineasEfectivas()+ "</strong></li>\n"
                                   +"<li>Resumen Grafo de Llamadas a Funcion: <strong>" + funcionArg + "</strong></li>\n"
-                                  +"<p><img src="+"DiagramaLlamadas.svg"+" width="+"100%"+"/></p>";
+                                  +"<p><img src="+"DiagramaLlamadas.svg"+" width="+"100%"+"/></p>"
+                                  +"<hr><li>Grafo completo del programa: </li>\n"
+                                  +"<p><img src="+"grafoCompleto.svg"+" width="+"100%"+"/></p>";
             String htmlLine = "<body> <html> \n";
             try{
               output = new BufferedWriter(new FileWriter(nombreHtml, false));
@@ -92,6 +94,7 @@ public class EjecutableExpr{
                 new Thread(new SyncPipe(p.getInputStream(), System.out)).start();
                 PrintWriter stdin = new PrintWriter(p.getOutputStream());
                 stdin.println("dot -Tsvg DiagramaLlamadas.dot -o DiagramaLlamadas.svg");
+                stdin.println("dot -Tsvg grafoCompleto.dot -o grafoCompleto.svg");
                 //stdin.println("dot -Tsvg "+num +".dot -o "+num+".svg");
 
                 stdin.close();

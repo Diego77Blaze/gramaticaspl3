@@ -6,6 +6,7 @@
 function prueba():void
 begin
     //Ifs que podemos tener
+    numero arraydenumero[3]:=(5,6,7);
     if (false) then
         imprimir ("verdad");
     else
