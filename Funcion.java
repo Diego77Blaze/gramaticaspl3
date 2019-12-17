@@ -14,6 +14,8 @@ public class Funcion{
     private ArrayList<String> LlamadasFuncion;
     private String nombreArchivo;
     private long complejidad;
+    private int nodoInicial;
+    private int nodoFinal;
 
     public Funcion(){
         this.nombre = "";
@@ -26,6 +28,8 @@ public class Funcion{
         this.LlamadasFuncion = new ArrayList<String>();
         this.nombreArchivo = "";
         this.complejidad = 0;
+        this.nodoInicial=1;
+        this.nodoFinal=1;
     }
 
     public ArrayList<String> getLlamadasFuncion(){
@@ -77,6 +81,18 @@ public class Funcion{
     }
     public void setComplejidad(int aristas,int nodos){
         this.complejidad=aristas-nodos+2;
+    }
+    public void setNodoInicial(int nodo){
+        this.nodoInicial=nodo;
+    }
+    public void setNodoFinal(int nodo){
+        this.nodoFinal=nodo;
+    }
+    public int getNodoInicial(){
+        return this.nodoInicial;
+    }
+    public int getNodoFinal(){
+        return this.nodoFinal;
     }
 
     public void printAttributes(){

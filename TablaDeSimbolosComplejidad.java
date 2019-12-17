@@ -3,8 +3,7 @@ import java.util.*;
 public class TablaDeSimbolosComplejidad{
 
     private HashMap<Integer, ArrayList<Integer>> tablaSimbolos;
-    
-    private Integer complejidad;
+    private TablaDeSimbolos ts;
     
     public TablaDeSimbolosComplejidad(){
 
@@ -22,23 +21,20 @@ public class TablaDeSimbolosComplejidad{
             return tablaSimbolos.size();
         }else{
             int valor=tablaSimbolos.size()+1;
-        tablaSimbolos.put(valor,valores);
-        System.out.println("nodo "+(tablaSimbolos.size()+1)+" creado");}
-        return tablaSimbolos.size()+1;
-
-
+            tablaSimbolos.put(valor,valores);
+            System.out.println("nodo "+(tablaSimbolos.size()+1)+" creado");}
+            return tablaSimbolos.size()+1;
     }
     
     public void addValor(Integer key, Integer valor){
         ArrayList<Integer> valores=new ArrayList<>();
-        if(tablaSimbolos.get(key)!=null){
-            
+        //if(tablaSimbolos.get(key)!=null){          
             valores=tablaSimbolos.get(key);
             tablaSimbolos.remove(key);
             valores.add(valor);
             tablaSimbolos.put(key,valores);
             //System.out.println("actualizada entrada");
-        }/*else {            
+        /*}else {            
             valores.add(valor);
             this.tablaSimbolos.put(key,valores);
             //System.out.println("nueva entrada");
