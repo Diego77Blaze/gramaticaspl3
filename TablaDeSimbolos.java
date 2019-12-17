@@ -2,16 +2,12 @@ import java.util.*;
 
 public class TablaDeSimbolos{
 
-
-//TODO ACCESO A FUNCION MAS CONSISTENTE
     private HashMap<String, Funcion> ts;
-    //private HashMap<String, ArrayList<String>> grafoLlamadasFuncion;
     private long resumenPuntosFuncion;
     private long resumenLineasEfectivas;
 
     public TablaDeSimbolos(){
         this.ts = new HashMap<String, Funcion>();
-        //this.grafoLlamadasFuncion = new HashMap<String, ArrayList<String>>();
         this.resumenPuntosFuncion = 0;
         this.resumenLineasEfectivas = 0;
     }
@@ -33,15 +29,6 @@ public class TablaDeSimbolos{
         return ts.get(clave);
     }
 
-    public void printHashMap(){
-        for (Funcion funcion : ts.values()){
-            if (!funcion.getNombre().equals("")){
-                funcion.printAttributes();
-                System.out.println();
-            }
-        }
-    }
-
     public String printHashMapToHtml(){
         String textoHtml = "";
         for (Funcion funcion : ts.values()){
@@ -59,9 +46,9 @@ public class TablaDeSimbolos{
         }
     }
 
-    public String conversionNombre(LlamadaFuncion lf){                            //RETOCAR LAS FUNCIONES QUE MANIPULAN EL NOMBRE DE FUNCIONES
+    public String conversionNombre(LlamadaFuncion lf){
         String nombreConvertido = null;
-        String nombreSimple = lf.getNombre();                                        //PARA CONSEGUIR COMPARAR SI SON EXACTAMENTE IGUALES O NO
+        String nombreSimple = lf.getNombre();
         int numParametrosFcompleja = 0;
         int numParametrosFllamada = lf.getNumeroP();
         for (String nombreComplejo : this.ts.keySet()){
@@ -78,8 +65,8 @@ public class TablaDeSimbolos{
     public String trocearNombreFuncionCompleto(String nombreCompleto){
         String identificadorFuncion = "";
         if(nombreCompleto.contains("(")){
-            int beginIndex = 9; //todos los nombres de funciones declaradas empiezan por function + espacio
-            int endIndex = nombreCompleto.indexOf("("); //el identificador acabara cuando encontremos un abrir parentesis
+            int beginIndex = 9;
+            int endIndex = nombreCompleto.indexOf("(");
             identificadorFuncion = nombreCompleto.substring(beginIndex, endIndex);
         }else{
             identificadorFuncion = nombreCompleto;
@@ -122,13 +109,13 @@ public class TablaDeSimbolos{
         HashMap<String, Funcion> copiaTDS = this.ts;
         String nombreFuncion = lf.getNombre();
 
-        if (nombreSimple){                                                              //si es un nombre simple i.e main y la TDS contiene la
+        if (nombreSimple){
             if(copiaTDS.containsKey(conversionNombre(lf))) {
-                nombreFuncion = conversionNombre(lf);                        //clave function main():void convierte el nombre simple
+                nombreFuncion = conversionNombre(lf);
             }
-            else{                                                                       //se convierte a nombrecomplejo para poder acceder a la clave
+            else{
                 copiaTDS.put(nombreFuncion, new Funcion());
-            }                                                                           //si no, es una funcion del lenguaje y la añade vacia al HM
+            }
         }
 
         ArrayList<LlamadaFuncion>funcionesLlamadas = copiaTDS.get(nombreFuncion).getLlamadasFuncion();

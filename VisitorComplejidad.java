@@ -3,9 +3,6 @@ import org.antlr.v4.runtime.tree.*;
 import java.util.*;
 import java.io.*;
 
-
-
-
 public class VisitorComplejidad extends ExprParserBaseVisitor{
 
     private TablaDeSimbolosComplejidad ts;
@@ -53,10 +50,8 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                     output = new BufferedWriter(new FileWriter(ruta, false));
 
                     output.append(contenido);
-                    System.out.println(nodos);
                     funcion1.setNodoFinal(numeroNodos);
                     for(Integer nodo : nodos){
-                        //System.out.println("inicio:"+funcion1.getNodoInicial()+"fin:"+funcion1.getNodoFinal()+"nodo:"+nodo);
                         if(funcion1.getNodoInicial()<=nodo && funcion1.getNodoFinal()>=nodo){
                         ArrayList<Integer> aristas = (ArrayList)ts.getTablaSimbolosComplejidad().get(nodo);
 
@@ -70,7 +65,6 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                                 }
                             }
                             numeroAristas+=aristas.size();
-                            System.out.println(aristas);
                         }
                     }
                     output.append(cierreLlave);
@@ -78,8 +72,6 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
 
                     output.close();
                     numerofunciones++;
-
-                    System.out.println(numeroNodos);
                     funcion1.setComplejidad(numeroAristas,funcion1.getNodoFinal()-funcion1.getNodoInicial()+1);
                     numeroAristas=0;
                     numeronodosgrafofinal=numeroNodos;
@@ -95,12 +87,9 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
             }
         }
         grafoGlobal=true;
-                //if (ctx.cuerpofuncion() != null){
                     ArrayList<ExprParser.CuerpofuncionContext> funciones = new ArrayList<ExprParser.CuerpofuncionContext>(ctx.cuerpofuncion());
                     String auxiliar="";
-                    System.out.println("segunda vuelta");
                     for(ExprParser.CuerpofuncionContext funcio: funciones){
-                        System.out.println("segunda vueltaprimerfor");
 
                         try {
 
@@ -112,9 +101,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                             e.printStackTrace();
                         }}
                         try{
-                        //funcion1.setNombreArchivo("complejidad"+numerofunciones);
                             String nombrebase = "grafoCompleto";
-                            System.out.println("dentro de segundo try");
 
                             String ruta2 = nombrebase+".dot";
 
@@ -131,24 +118,17 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                             output2 = new BufferedWriter(new FileWriter(ruta2, false));
 
                             output2.append(contenidobase);
-                            System.out.println("deberia poner lo de digraph:"+contenidobase);
-                            //funcion1.setNodoFinal(numeroNodos);
-                            //output2.append("I->1;\n\t");
                             for(Integer nodo : nodos){
 
                                 ArrayList<Integer> aristas = (ArrayList)ts.getTablaSimbolosComplejidad().get(nodo);
 
                                     for(int i=0;i<aristas.size();i++){
-                                        System.out.println(nodo-1 +"->"+ (aristas.get(i)-1)+";\n\t");
                                         output2.append(nodo-1 +"->"+ (aristas.get(i)-1)+";\n\t");
                                     }
 
                                     numeroAristas+=aristas.size();
-                                    System.out.println("dentro del for nodo");
 
                             }
-                            //output2.append(numeroNodos+"->F;\n\t");
-                            System.out.println("segunda vuelta cerrado archivo");
                             output2.append(cierreLlave);
                             output2.close();
                         }
@@ -187,8 +167,6 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
     }
     @Override
     public String visitCuerpofuncion(ExprParser.CuerpofuncionContext ctx) {
-
-        //ArrayList<Integer> valores;
         String nombreFuncion="";
 
 
@@ -200,7 +178,6 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
             if(!grafoGlobal){
             ts.addNewNode();}
             visit(ctx.codigo());}
-        //System.out.println(nombreFuncion);
 
         return nombreFuncion;
     }
@@ -285,11 +262,9 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
                 Integer nodo3=ts.addNewNode();
                 ts.addValor(nodo,nodo3);
                 visit(ctx.codigo(1));
-                //System.out.println("me meto en el else");
                 Integer nodo4=ts.addNewNode();
                 ts.addValor(nodo4-1,nodo4);
                 ts.addValor(nodo2,nodo4);
-                //ts.addValor(nodo3,nodo4);
                 return 0;
             }
             else{
@@ -351,17 +326,13 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         nombreFuncion += ctx.identificador_tok().IDENTIFICADOR().getText();
         Set<String> posiblefuncion =tsimbolos.getHashMap().keySet();
         String funcionSeleccionada="";
-        System.out.println(nombreFuncion);
         for(String grafo : posiblefuncion){
             if(grafo.contains(nombreFuncion)){
                 funcionSeleccionada=grafo;
-                System.out.println(funcionSeleccionada);
             }
         }
         Integer nodo=nodosLlamada.get(0);
-        System.out.println(nodosLlamada);
         nodosLlamada.remove(nodo);
-        System.out.println(nodo);
         Funcion funcionElegida;
         if(tsimbolos.getHashMap().containsKey(funcionSeleccionada)){
             funcionElegida=tsimbolos.getHashMap().get(funcionSeleccionada);
@@ -384,15 +355,6 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         visit(ctx.llamadafuncion());
         if(grafoGlobal){
               visit(ctx.llamadafuncion());
-
-            /*String nombreFuncion ="function ";
-            nombreFuncion += ctx.expr().exprllamadafuncion().identificador_tok().IDENTIFICADOR().getText();
-            Integer nodo=nodosLlamada.get(0);
-            ts.addValor(nodo,tsimbolos.getHashMap().get(nombreFuncion).getNodoInicial());
-            ts.addValor(tsimbolos.getHashMap().get(nombreFuncion).getNodoFinal(),nodo);*/
-
-
-
         }
         else{
         Integer nodo= ts.addNewNode();

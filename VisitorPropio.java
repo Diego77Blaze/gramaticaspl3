@@ -2,14 +2,6 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.*;
 
-
-
-
-
-
-
-
-
 public class VisitorPropio extends ExprParserBaseVisitor{
 
     private Funcion funcionVisitada;
@@ -161,7 +153,6 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         puntosBucle += (Long)visit(ctx.expr());
         if(ctx.codigo() != null)puntosBucle += (long)Math.pow((Long)visit(ctx.codigo()), 2);
         else if (ctx.sentencia_unica() != null) puntosBucle += (long)Math.pow((Long)visit(ctx.sentencia_unica()), 2);
-        //puntosBucle = (long) Math.pow(puntosBucle, 2);
 
 
         return puntosBucle;
@@ -169,18 +160,18 @@ public class VisitorPropio extends ExprParserBaseVisitor{
     @Override
     public Long visitLlamadafuncion(ExprParser.LlamadafuncionContext ctx) {
         LlamadaFuncion lf = new LlamadaFuncion();
-        long puntosLlamadaF = 2L; //hemos llegado a una llamada a funcion a si que como minimo su puntuacion sera 2
+        long puntosLlamadaF = 2L;
         String nombreFuncionLlamada = ctx.identificador_tok().IDENTIFICADOR().getText();
         int numParametros = 0;
         lf.setNumeroP(numParametros);
         lf.setNombre(nombreFuncionLlamada);
         if(ctx.expr() != null){
             ArrayList<ExprParser.ExprContext> parametrosLlamadaF = new ArrayList<ExprParser.ExprContext>(ctx.expr());
-            puntosLlamadaF += parametrosLlamadaF.size(); //al valor minimo de 2 se le sumara 1 por cada parametro que use la funcion
+            puntosLlamadaF += parametrosLlamadaF.size();
             numParametros = parametrosLlamadaF.size();
             lf.setNumeroP(numParametros);
             for(ExprParser.ExprContext parametro : parametrosLlamadaF){
-                puntosLlamadaF += (Long)visit(parametro); //como un argumento puede ser una expr y estas pueden ser elementos puntos funcion tenemos que visitar cada una
+                puntosLlamadaF += (Long)visit(parametro);
             }
             funcionVisitada.addLlamadasFuncion(1);
         }
@@ -202,21 +193,6 @@ public class VisitorPropio extends ExprParserBaseVisitor{
         }
         return puntosIf;
     }
-    /*@Override
-    public Long visitCuerposwitch(ExprParser.CuerposwitchContext ctx) {
-        long puntosSw = 0;
-
-
-        if(ctx.codigo() != null){
-            ArrayList<ExprParser.CodigoContext> bloquesCodigo = new ArrayList<ExprParser.CodigoContext>(ctx.codigo());
-
-            for(ExprParser.CodigoContext bloque: bloquesCodigo){
-                puntosSw += Math.pow((Long)visit(bloque), 2);
-            }
-        }
-
-        return puntosSw;
-    }*/
 
     @Override
     public Long visitMultDiv(ExprParser.MultDivContext ctx) {
@@ -265,15 +241,13 @@ public class VisitorPropio extends ExprParserBaseVisitor{
 
     @Override
     public Long visitBucle_for(ExprParser.Bucle_forContext ctx) {
-        long puntosFor = 3L;//visitando un bucle for, automaticamente hay una declaracion, una asignacion y un if con un operador.
+        long puntosFor = 3L;
         funcionVisitada.addDeclaraciones(1L);
-        funcionVisitada.addOperadorSimple(2L);//Se añade un operador por el igual de asignacion y otro por el if
-        funcionVisitada.addLineaEfectiva(2L); //la declaración de for incluye 3 lineas efectivas, declaracion asignacion e if,
-                                              //una esta añadida por llamada a sentencia unica, aqui se añaden las 2 restantes
+        funcionVisitada.addOperadorSimple(2L);
+        funcionVisitada.addLineaEfectiva(2L);
         if (ctx.codigo() != null){
             puntosFor += (long)Math.pow((Long)visit(ctx.codigo()), 2);
         }
-        //puntosFor = (long) Math.pow(puntosFor, 2);
         return puntosFor;
     }
     @Override

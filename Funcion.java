@@ -98,20 +98,6 @@ public class Funcion{
         return this.nParametros;
     }
 
-    public void printAttributes(){
-        System.out.println("nombre: " + this.nombre);
-        System.out.println("numero de parametros: " + this.nParametros);
-        System.out.println("numero de declaraciones: " + this.nDeclaraciones);
-        System.out.println("numero de llamadas a funcion: " + this.llamadasFuncion);
-        System.out.println("numero de operadores simples: " + this.nOperadoresSimples);
-        System.out.println("Puntos Funcion: " + this.puntosTotales);
-        System.out.println("Lineas efectivas: " + this.lineasEfectivas);
-        System.out.println("Lista de funciones llamadas: \n");
-        System.out.println("Complejidad de la funcion: " + this.complejidad);
-        for (LlamadaFuncion funcion : LlamadasFuncion){
-            System.out.println("\t" + funcion.getNombre());
-        }
-    }
     public void convertirArchivos(){
 
         String[] command = {
@@ -157,7 +143,6 @@ public class Funcion{
                           +"<p><img src="+this.nombreArchivo+".svg></p>"
                           +"</ul>\n"
                           +"<hr />\n";
-                      //<p><img src="fichero.svg" width="100%"/> </p>
       }
       return htmlLine;
     }
@@ -172,7 +157,6 @@ public class Funcion{
         if (!contiene){
             this.LlamadasFuncion.add(llamadaNueva);
         }
-        //this.LlamadasFuncion.add(llamadaNueva);
     }
 
 }
