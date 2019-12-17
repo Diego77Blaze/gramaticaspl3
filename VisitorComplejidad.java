@@ -122,11 +122,14 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
 
                                 ArrayList<Integer> aristas = (ArrayList)ts.getTablaSimbolosComplejidad().get(nodo);
 
-                                    for(int i=0;i<aristas.size();i++){
+                                for(int i=0;i<aristas.size();i++){
+                                    if(nodo==numeroNodos && aristas.get(i)-1!=nodo){
+                                        output2.append(nodo +"->"+ (aristas.get(i)-1)+";\n\t");
+                                    }else{
                                         output2.append(nodo-1 +"->"+ (aristas.get(i)-1)+";\n\t");
                                     }
-
-                                    numeroAristas+=aristas.size();
+                                }
+                                numeroAristas+=aristas.size();
 
                             }
                             output2.append(cierreLlave);
@@ -281,6 +284,11 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
 
     @Override
     public Integer visitDevolver(ExprParser.DevolverContext ctx) {
+        if (ctx.expr() != null){
+
+                        visit(ctx.expr());
+
+        }
         if(grafoGlobal){
 
 
@@ -294,6 +302,14 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
     }
     @Override
     public Integer visitDeclaracion(ExprParser.DeclaracionContext ctx) {
+        if (ctx.expr() != null)
+        {
+            ArrayList<ExprParser.ExprContext> exprAsignadas = new ArrayList<>(ctx.expr());
+            for (ExprParser.ExprContext exprAsignada : exprAsignadas)
+            {
+                visit(exprAsignada);
+            }
+        }
         if(grafoGlobal){
 
 
@@ -306,6 +322,12 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
     }
     @Override
     public Integer visitAsignacion(ExprParser.AsignacionContext ctx) {
+        if (ctx.expr() != null)
+        {
+
+                visit(ctx.expr());
+
+        }
         if(grafoGlobal){
 
 
@@ -336,8 +358,12 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         Funcion funcionElegida;
         if(tsimbolos.getHashMap().containsKey(funcionSeleccionada)){
             funcionElegida=tsimbolos.getHashMap().get(funcionSeleccionada);
-            ts.addValor(nodo-1,funcionElegida.getNodoInicial()+1);
-            ts.addValor(funcionElegida.getNodoFinal()+1,nodo-1);
+            ts.addValor(nodo,funcionElegida.getNodoInicial()+1);
+            Set <Integer> setdenodos=ts.getTablaSimbolosComplejidad().keySet();
+            int finalisimo=setdenodos.size();
+            if(finalisimo>=funcionElegida.getNodoFinal()+1){
+                ts.addValor(funcionElegida.getNodoFinal()+1,nodo);
+            }else {ts.addValor(funcionElegida.getNodoFinal(),nodo);}
         }
 
 
@@ -345,7 +371,7 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         }
         else{
         Integer nodo= ts.addNewNode();
-        nodosLlamada.add(nodo);
+        nodosLlamada.add(nodo-1);
         ts.addValor(nodo-1,nodo);
         }
         return 0;
@@ -366,6 +392,14 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
 
     @Override
     public Integer visitAsignacion_array(ExprParser.Asignacion_arrayContext ctx){
+        if (ctx.expr() != null)
+        {
+            ArrayList<ExprParser.ExprContext> exprAsignadas = new ArrayList<>(ctx.expr());
+            for (ExprParser.ExprContext exprAsignada : exprAsignadas)
+            {
+                visit(exprAsignada);
+            }
+        }
         if(grafoGlobal){
 
 
@@ -379,8 +413,15 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
 
     @Override
     public Integer visitDeclaracion_array(ExprParser.Declaracion_arrayContext ctx){
+        if (ctx.expr() != null)
+        {
+            ArrayList<ExprParser.ExprContext> exprAsignadas = new ArrayList<>(ctx.expr());
+            for (ExprParser.ExprContext exprAsignada : exprAsignadas)
+            {
+                visit(exprAsignada);
+            }
+        }
         if(grafoGlobal){
-
 
         }
         else{
@@ -389,5 +430,10 @@ public class VisitorComplejidad extends ExprParserBaseVisitor{
         }
         return 0;
 
+    }
+
+    public Integer visitExpr(ExprParser.ExprContext ctx) {
+        visitChildren(ctx);
+        return 0;
     }
 }
