@@ -1,4 +1,0 @@
-digraph complejidad2 {
-	1->2;
-	2->F;
-	}
