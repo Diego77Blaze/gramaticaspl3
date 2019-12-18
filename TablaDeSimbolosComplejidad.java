@@ -27,10 +27,13 @@ public class TablaDeSimbolosComplejidad{
 
     public void addValor(Integer key, Integer valor){
         ArrayList<Integer> valores=new ArrayList<>();
-            valores=tablaSimbolos.get(key);
+        valores=tablaSimbolos.get(key);
+        if(!valores.contains(valor)){
             tablaSimbolos.remove(key);
             valores.add(valor);
             tablaSimbolos.put(key,valores);
+        }
+
     }
     public HashMap getTablaSimbolosComplejidad(){
 
@@ -41,7 +44,7 @@ public class TablaDeSimbolosComplejidad{
     public void setComplejidadGlobal(int complejidad){
         this.complejidadGlobal=complejidad;
     }
-    
+
     public int getComplejidadGlobal(){
         return complejidadGlobal;
     }
